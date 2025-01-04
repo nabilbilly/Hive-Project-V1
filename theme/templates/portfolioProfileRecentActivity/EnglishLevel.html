@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Of English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .selected {
+            background-color: #FFC22666 !important;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+     <!-- level of English Section -->
+     <div class="flex items-center justify-center pt-6 pb-24 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
+        
+      
+        <!-- Slider Content -->
+        <div class="flex items-center space-x-3 overflow-x-auto flex-nowrap scrollbar-hide" id="slider">
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Category&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Earning&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Experience&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Education&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-yellow-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Language&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Work Location&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Work Status&nbsp;
+            </button>
+          </a>
+          <a href="">
+            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
+              &nbsp;Team Setup&nbsp;
+            </button>
+          </a>
+        </div>
+      
+        <!-- Right Arrow -->
+        <button 
+          class="bg-gray-300 text-gray-700 lg:hidden p-2 rounded-full shadow-md hover:bg-gray-400 focus:outline-none" 
+          onclick="scrollRight()">
+          &#8594;
+        </button>
+    </div>
+      
+    
+    
+   
+    <div class="flex flex-col items-center pb-10 px-4 sm:px-8 lg:px- bg-white px-4 sm:px-6 md:px-8 lg:pl- lg:pr-42 xl:px-20">
+    
+    
+       
+         <!-- Main Content -->
+         <div class="flex flex-col items-center lg:items-start w-full lg:w-2/2 lg:pl-16 ">
+            <div class="flex flex-col items-center lg:items-start w-full lg:w-3/4 lg:pl-8 pl-10">
+                <div class="w-full max-w-3xl mb-4 ">
+                    <h2 class="text-md font-semibold text-left text-gray-900 ">
+                        what is your english level?
+                    </h2>
+                </div>
+            <!-- Categories Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-4">
+                <button class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium">A1 Beginner</button>
+                <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">A2 Elementary</button>
+                <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">B1 Intermediate</button>
+                <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium"> B2 Upper Intermediate</button>
+                <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">C1 Advance</button>
+                <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">C2 Proficient</button>
+                <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Native Speaker</button>
+                
+            </div>
+           
+        </div>
+    </div>
+        <div style="background-color: white; display: flex; justify-content: flex-end; align-items: center; height: 150px; width: 100%;">
+            <svg width="150" height="150" viewBox="0 0 266 265" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_d_3210_2805)">
+                <rect x="82" y="54" width="102" height="101.184" rx="50.592" fill="#FDCE02" shape-rendering="crispEdges"/>
+                <path d="M146.775 88.3598L122.955 84.1537C122.191 84.0192 121.405 84.1937 120.77 84.6389C120.134 85.084 119.701 85.7633 119.567 86.5274L114.126 117.434C114.06 117.812 114.068 118.2 114.152 118.575C114.235 118.951 114.392 119.306 114.613 119.621C114.834 119.935 115.114 120.203 115.439 120.41C115.763 120.616 116.125 120.756 116.504 120.822L140.323 125.028C140.702 125.095 141.09 125.087 141.466 125.003C141.841 124.92 142.197 124.763 142.511 124.543C142.826 124.322 143.095 124.041 143.301 123.717C143.507 123.392 143.648 123.03 143.714 122.651L149.154 91.7449C149.288 90.9805 149.112 90.1945 148.666 89.5597C148.22 88.9249 147.54 88.4933 146.775 88.3598ZM133.008 105.241C132.948 105.58 132.772 105.886 132.508 106.107C132.245 106.328 131.913 106.45 131.569 106.45C131.483 106.45 131.398 106.443 131.313 106.428L123.724 105.088C123.363 104.999 123.049 104.776 122.847 104.465C122.644 104.154 122.568 103.777 122.632 103.411C122.697 103.045 122.899 102.718 123.196 102.496C123.494 102.273 123.865 102.172 124.234 102.213L131.82 103.546C132.009 103.579 132.19 103.649 132.352 103.752C132.515 103.856 132.655 103.99 132.765 104.147C132.876 104.305 132.954 104.482 132.996 104.67C133.037 104.858 133.042 105.052 133.008 105.241ZM141.603 100.819C141.544 101.157 141.367 101.464 141.104 101.685C140.841 101.906 140.509 102.027 140.166 102.028C140.079 102.028 139.993 102.02 139.908 102.004L124.729 99.3251C124.347 99.2574 124.008 99.0407 123.785 98.7226C123.563 98.4045 123.476 98.0111 123.543 97.6289C123.611 97.2467 123.828 96.9071 124.146 96.6847C124.464 96.4623 124.857 96.3753 125.24 96.443L140.418 99.1239C140.608 99.1569 140.789 99.2269 140.952 99.3299C141.114 99.433 141.255 99.5671 141.365 99.7246C141.476 99.8821 141.554 100.06 141.596 100.248C141.638 100.435 141.642 100.63 141.609 100.819H141.603ZM142.618 95.0549C142.559 95.3934 142.382 95.7 142.119 95.921C141.855 96.1421 141.523 96.2634 141.179 96.2638C141.093 96.2636 141.008 96.2563 140.923 96.2418L125.744 93.5608C125.551 93.5324 125.365 93.4653 125.198 93.3637C125.031 93.2622 124.885 93.1281 124.771 92.9694C124.656 92.8107 124.575 92.6307 124.531 92.44C124.488 92.2493 124.483 92.0518 124.517 91.8591C124.551 91.6664 124.623 91.4826 124.729 91.3183C124.836 91.1541 124.974 91.0129 125.136 90.903C125.298 90.7931 125.48 90.7168 125.672 90.6786C125.864 90.6404 126.061 90.641 126.253 90.6805L141.432 93.3597C141.621 93.3924 141.803 93.4622 141.965 93.5652C142.128 93.6682 142.269 93.8023 142.38 93.9598C142.49 94.1173 142.569 94.2951 142.611 94.483C142.653 94.6709 142.657 94.8653 142.624 95.0549H142.618Z" fill="#1E1E1E"/>
+                </g>
+                <defs>
+                <filter id="filter0_d_3210_2805" x="0.400002" y="0.144001" width="265.2" height="264.384" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="27.744"/>
+                <feGaussianBlur stdDeviation="40.8"/>
+                <feComposite in2="hardAlpha" operator="out"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3210_2805"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3210_2805" result="shape"/>
+                </filter>
+                </defs>
+                </svg>
+        </div> 
+        
+        <div class="bg-white flex items-center justify-center space-x-7 ">
+            
+            <a href=""> <button class="bg-gray-300 text-gray-700 font-md px-4 py-4 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;&nbsp;</button> </a>
+        
+        </div>
+    </div>
+
+    <!-- JavaScript for Multi-Select with Limit -->
+    <script>
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        let selectedCount = 0;
+        const maxSelection = 1;
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('selected')) {
+                    // Deselecting a selected button
+                    button.classList.remove('selected');
+                    selectedCount--;
+                } else if (selectedCount < maxSelection) {
+                    // Selecting a new button if under the limit
+                    button.classList.add('selected');
+                    selectedCount++;
+                } else {
+                    alert(`You can select a maximum of ${maxSelection} options.`);
+                }
+            });
+        });
+    </script>
+    <script>
+        function scrollLeft() {
+            const slider = document.getElementById('slider');
+            slider.scrollBy({
+              left: -150, // Adjust scroll amount
+              behavior: 'smooth',
+            });
+          }
+          
+          function scrollRight() {
+            const slider = document.getElementById('slider');
+            slider.scrollBy({
+              left: 150, // Adjust scroll amount
+              behavior: 'smooth',
+            });
+          }
+          
+    </script>
+    
+
+    
+</body>
+</html>
+

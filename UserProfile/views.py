@@ -82,7 +82,39 @@ def Explore(request):
 
 @login_required
 def ExpertedEarns(request):
-    return render(request,'Introduction/ExpertedEarn.html')
+    if request.method == 'POST':
+        selected_max_salary = request.POST.get('max_salary')
+        selected_min_salary = request.POST.get('min_salary')
+
+        # Validate max_salary and min_salary
+        if not selected_max_salary:
+            messages.error(request, "Please select maximum salary.")
+            return render(request, 'Introduction/ExpertedEarn.html')
+        
+        if not selected_min_salary:
+            messages.error(request, "Please select minimum salary.")
+            return render(request, 'Introduction/ExpertedEarn.html')
+        
+        if not selected_max_salary.isdigit():
+            messages.error(request, "Invalid maximum salary selection.")
+            return render(request, 'Introduction/ExpertedEarn.html')
+        
+        if not selected_min_salary.isdigit():
+            messages.error(request, "Invalid minimum salary selection.")
+            return render(request, 'Introduction/ExpertedEarn.html')
+
+        # Update user preference
+        user = request.user  # Get the current authenticated user
+        user_preference, created = UserPreference.objects.get_or_create(user=user)
+
+        user_preference.max_salary = int(selected_max_salary)
+        user_preference.min_salary = int(selected_min_salary)
+        user_preference.save()
+
+        messages.success(request, "Your salary preferences have been set.")
+        return redirect('Years-Of-Experience')  # Redirect to the next step
+
+    return render(request, 'Introduction/ExpertedEarn.html')
 
 @login_required
 def YearsOfExperiences(request):
@@ -492,7 +524,7 @@ def updateExperted(request):
 def updateExplore(request):
     # Fetch the user's stored preference
     user_preference = UserPreference.objects.filter(user=request.user).first()
-    stored_preference_ids = user_preference.interests.values_list('id', flat=True) if user_preference else []
+    stored_preference_ids = user_preference.explore_interests.values_list('id', flat=True) if user_preference else []
 
     context = {
         'active_page': 'category',

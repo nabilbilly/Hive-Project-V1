@@ -36,10 +36,11 @@ class UserPreferenceAdmin(admin.ModelAdmin):
         'get_expected_earnings',
         'get_years_experience',
         'get_teams',
+        'get_bio_data',
         'get_email_notifications',
         'created_at',
         'updated_at'
-    )
+    )  
     search_fields = ('user__username', 'user__email')  # Allows searching by username and email
 
     # Custom method to display the image
@@ -70,6 +71,7 @@ class UserPreferenceAdmin(admin.ModelAdmin):
         return ", ".join([str(countries) for countries in obj.country_location.all()])
     get_country_options.short_description = "Country Options"
 
+
     def get_employment_options(self, obj):
         return ", ".join([str(employment) for employment in obj.employment_options.all()])
     get_employment_options.short_description = "Employment Options"
@@ -99,8 +101,21 @@ class UserPreferenceAdmin(admin.ModelAdmin):
     get_years_experience.short_description = "Years of Experience"
 
     def get_teams(self, obj):
-        return ", ".join([str(team) for team in obj.teams.all()])
+        return ", ".join([str(team) for team in obj.team.all()])
     get_teams.short_description = "Teams"
+    
+    def get_bio_data(self, obj):
+        return ", ".join([str(bio_data) for bio_data in obj.bio_data])
+    get_bio_data.short_description = "Bio Data"
+    
+    def get_min_salary(self, obj):
+        return ", ".join([str(min_salary) for min_salary in obj.min_salary])
+    get_min_salary.short_description = "min salary"
+
+    def get_max_salary(self, obj):
+        return ", ".join([str(max_salary) for max_salary in obj.max_salary])
+    get_max_salary.short_description = "max salary"
+
 
     def get_email_notifications(self, obj):
         return "Enabled" if obj.email_notifications else "Disabled"
@@ -119,3 +134,4 @@ admin.site.register(JobListType)
 admin.site.register(WorkSchedule)
 admin.site.register(TeamSetup)
 admin.site.register(JoinCommunity)
+# admin.site.register(EmailNotification)

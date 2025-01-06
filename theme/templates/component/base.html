@@ -1,5 +1,5 @@
 {% load static tailwind_tags %}
-{% load compress %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +45,7 @@
             }
     
     </style>
-        {% compress css %}
-             <link rel="stylesheet" href="{% static 'src/input.css' %}">
-        {% endcompress %}
+       
     {% tailwind_css %}
 </head>
 <body class="bg-white">

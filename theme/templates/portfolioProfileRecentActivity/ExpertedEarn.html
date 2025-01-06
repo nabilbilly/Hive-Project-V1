@@ -1,75 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Job Steps</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
-</head>
-<body class="bg-white">
-    <div class="flex items-center justify-center pt-6 pb-24 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        
-      
-        <!-- Slider Content -->
-        <div class="flex items-center space-x-3 overflow-x-auto flex-nowrap scrollbar-hide" id="slider">
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Category&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-yellow-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Earning&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Experience&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Education&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Language&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Work Location&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Work Status&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Team Setup&nbsp;
-            </button>
-          </a>
-        </div>
-      
-        <!-- Right Arrow -->
-        <button 
-          class="bg-gray-300 text-gray-700 lg:hidden p-2 rounded-full shadow-md hover:bg-gray-400 focus:outline-none" 
-          onclick="scrollRight()">
-          &#8594;
-        </button>
-    </div>
+{% extends './components/base.html' %}
+
+{% block title %}Page Title{% endblock %}
+  <!-- Main Container -->
+
+{% block content %}
      
     <div class="bg-white flex items-center justify-center py-5">
         <div class="flex justify-center space-x-4 mb-6">
@@ -138,6 +72,7 @@
     </div>
     
      <!-- Chart and Interactive JavaScript -->
+    
      <script>
         // Setup initial chart data
         const ctx = document.getElementById('salaryChart').getContext('2d');
@@ -177,25 +112,5 @@
             salaryChart.update();
         }
     </script>
-    <script>
-        function scrollLeft() {
-            const slider = document.getElementById('slider');
-            slider.scrollBy({
-              left: -150, // Adjust scroll amount
-              behavior: 'smooth',
-            });
-          }
-          
-          function scrollRight() {
-            const slider = document.getElementById('slider');
-            slider.scrollBy({
-              left: 150, // Adjust scroll amount
-              behavior: 'smooth',
-            });
-          }
-          
-    </script>
-    
-</body>
-</html>
+{% endblock %}
 

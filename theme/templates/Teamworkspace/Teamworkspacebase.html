@@ -249,11 +249,26 @@ input[type="range"]::-ms-thumb {
                         <!-- Profile Dropdown -->
                         <div class="profile-dropdown origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="profile-menu-button">
                             <div class="py-1" role="none">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">View Profile</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings and Privacy</a>
+                                <div class="logout-button py-2 px-6">
+                                    <button  class="w-full bg-yellow-200 text-black font-semibold py-2 px-4 rounded-lg hover:bg-yellow-300">
+                                      Beta
+                                    </button>
+                                </div>
+                                <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Portfolio</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Recent Activities</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Saved Jobs</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Community</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Save</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Log Out</a>
+                                <div class="logout-button py-4 px-6">
+                                    <button id="openLogoutModal" class="w-full bg-yellow-400 text-black font-semibold py-2 px-4 rounded-lg hover:bg-yellow-500">
+                                      Logout
+                                    </button>
+                                </div>
+                                
+                                {% comment %} <form method="post" action="{% url 'accounts:LogoutUser' %}" class="w-full">
+                                    {% csrf_token %}
+                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log Out</button>
+                                </form> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -294,10 +309,27 @@ input[type="range"]::-ms-thumb {
             <a href="#" class="text-black font-semibold mt-2 hover:text-yellow-500">Overview</a>
             <a href="#" class="text-black font-semibold mt-2 hover:text-yellow-500">Balance</a>
             <a href="{% url 'Team-workspace-dashboard' %}" class="text-black font-semibold mt-2 hover:text-yellow-500">Team&nbsp;Workspace</a>
-            <a href="" class="bg-yellow-300 text-black font-semibold rounded-lg px-4 py-2 hover:text-black hover:bg-yellow-300">Job&nbsp;Search</a>
+            <a href="{% url 'dashboard:job_view' %}" class="bg-yellow-300 text-black font-semibold rounded-lg px-4 py-2 hover:text-black hover:bg-yellow-300">Job&nbsp;Search</a>
         </div>
-
+        
         <!-- Add this JavaScript -->
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const menuLinks = document.querySelectorAll('#responsive-menu a');
+        
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function (event) {
+                        // Remove "active" class from all links
+                        menuLinks.forEach(item => item.classList.remove('active'));
+        
+                        // Add "active" class to the clicked link
+                        this.classList.add('active');
+                    });
+                });
+            });
+        </script>
+        
         <script>
             const hamburgerIcon = document.getElementById('hamburger-icon');
             const responsiveMenu = document.getElementById('responsive-menu');

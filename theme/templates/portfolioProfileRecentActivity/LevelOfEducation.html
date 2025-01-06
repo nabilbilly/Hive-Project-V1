@@ -1,80 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level of Education</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .selected {
-            background-color: #FFC22666 !important;
-        }
-    </style>
-</head>
-<body class="bg-white">
+{% extends './components/base.html' %}
 
-    <!-- Level of Education Section -->
-    <div class="flex items-center justify-center pt-6 pb-24 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        
-      
-        <!-- Slider Content -->
-        <div class="flex items-center space-x-3 overflow-x-auto flex-nowrap scrollbar-hide" id="slider">
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Category&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Earning&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Experience&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-yellow-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Education&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Language&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Work Location&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Work Status&nbsp;
-            </button>
-          </a>
-          <a href="">
-            <button class="bg-gray-300 text-gray-700 font-sm px-2 py-2 rounded-md w-30 whitespace-nowrap">
-              &nbsp;Team Setup&nbsp;
-            </button>
-          </a>
-        </div>
-      
-        <!-- Right Arrow -->
-        <button 
-          class="bg-gray-300 text-gray-700 lg:hidden p-2 rounded-full shadow-md hover:bg-gray-400 focus:outline-none" 
-          onclick="scrollRight()">
-          &#8594;
-        </button>
-      </div>
-      
-   
+{% block title %}Page Title{% endblock %}
+  <!-- Main Container -->
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {% if messages %}
+  <ul class="messages mb-4">
+      {% for message in messages %}
+      <li class="bg-yellow-50 border border-yellow-400 rounded text-yellow-800 text-sm flex items-center justify-between p-2 mb-2 relative">
+          <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+              <p class="flex-1 mt-3">
+                  <span class="font-bold">Info:</span>
+                  {{ message }}
+              </p>
+          </div>
+          <button type="button" class="ml-3 text-yellow-800 hover:text-yellow-600" aria-label="Close" onclick="removeMessage(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+          </button>
+      </li>
+      {% endfor %}
+  </ul>
+  {% endif %}
     <div class="flex flex-col items-center pb-10 px-4 sm:px-8 lg:px- bg-white px-4 sm:px-6 md:px-8 lg:pl- lg:pr- xl:px-20">
            
             <!-- Main Content -->
@@ -87,20 +40,12 @@
                     </div>
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-5 mt-4">
-                    <button class="category-btn px-2 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">No formal education</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">High School Diploma</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Associate Degree</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium"> Bachelor Degree</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Masters Degree</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Professional Degree (JD,MD)</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Doctoriat Degree (Ph.D)</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Apprenticeship</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Vocational Training</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium"> Professional Certificate</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Licensing Programs</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Certificate Programs</button>
-                    <button class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">Online courses/Certificate/ Diploma/Degrees</button>
-                </div>
+                  {% for option in LevelOfEducation_options %}
+                  <button type="button" class="category-btn px-2 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
+                      {{option.name}}
+                  </button>
+                  {%endfor%} 
+                 </div>
                
             </div>
         </div>
@@ -133,6 +78,7 @@
         </div>
        
     </div>
+</form>
     <!-- JavaScript for Multi-Select with Limit -->
     <script>
         const categoryButtons = document.querySelectorAll('.category-btn');
@@ -156,26 +102,34 @@
         });
     </script>
     <script>
-        function scrollLeft() {
-            const slider = document.getElementById('slider');
-            slider.scrollBy({
-              left: -150, // Adjust scroll amount
-              behavior: 'smooth',
+        function removeMessage(button) {
+            const messageItem = button.closest('li');
+            if (messageItem) {
+                messageItem.remove();
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const hiddenInput = document.getElementById('level_education');
+            let selectedButton = null;
+    
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (selectedButton) {
+                        selectedButton.classList.remove('bg-yellow-400', 'text-white');
+                    }
+                    if (selectedButton !== button) {
+                        button.classList.add('bg-yellow-400', 'text-white');
+                        selectedButton = button;
+                        hiddenInput.value = button.dataset.value;
+                    } else {
+                        selectedButton = null;
+                        hiddenInput.value = '';
+                    }
+                });
             });
-          }
-          
-          function scrollRight() {
-            const slider = document.getElementById('slider');
-            slider.scrollBy({
-              left: 150, // Adjust scroll amount
-              behavior: 'smooth',
-            });
-          }
-          
+        });
     </script>
-    
 
-    
-</body>
-</html>
-
+  {% endblock %}

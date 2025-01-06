@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'theme',
     'django_browser_reload',
     'EmployersDashboard',
-    'compressor',
     'cities_light',
     'UserProfile',
     
@@ -77,11 +76,11 @@ MIDDLEWARE = [
 ]
 
 
-COMPRESS_ROOT = BASE_DIR / 'static'
+# COMPRESS_ROOT = BASE_DIR / 'static'
 
-COMPRESS_ENABLED = True
+# COMPRESS_ENABLED = True
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+# STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 
 

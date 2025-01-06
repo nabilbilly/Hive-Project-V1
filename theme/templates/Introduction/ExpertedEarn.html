@@ -107,15 +107,18 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="#" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
-        </div>
         <div class="bg-white flex items-center justify-center space-x-7 ">
-            <a href="{% url 'Explore-Interest' %}"><button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
-            <a href="{% url 'Years-Of-Experience' %}"><button class=" text-gray-700 bg-yellow-400 hover:bg-yellow-500 font-md px-4 py-2 rounded-md w-30" >Continue</button></a>
+            <a href="#"><button class=" text-gray-700 bg-yellow-400 hover:bg-yellow-500 font-md px-4 py-2 rounded-md w-30" >Continue</button></a>
         </div>
     </div>
     </form>
+    <div class="bg-white flex items-center justify-center space-x-7 ">
+        <a href="{% url 'Explore-Interest' %}"><button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
+        <div class="bg-white flex items-center justify-center py-12">
+            <a href="{% url 'Years-Of-Experience' %}" class="font-medium" style="color:#FDCE02">Skip Now</a>  
+        </div>
+    </div>
+    
      <!-- Chart and Interactive JavaScript -->
      <script>
         // Setup initial chart data

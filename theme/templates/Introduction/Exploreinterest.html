@@ -92,17 +92,20 @@
                 </form>
             </div>
         </div>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="#" class="font-medium" style="color:#FDCE02">Skip Now</a>  
-        </div>
         <div class="bg-white flex items-center justify-center space-x-7">
-            <a href="{% url 'Level-Of-Education' %}">
-                <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
-            </a>
             <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
         </div>
     </div>
     </form>
+    <div class="bg-white flex items-center justify-center space-x-7">
+        <a href="{% url 'Level-Of-Education' %}">
+            <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
+        </a>
+        <div class="bg-white flex items-center justify-center py-12">
+            <a href="{% url 'Experted-Earn' %}" class="font-medium" style="color:#FDCE02">Skip Now</a>  
+        </div>
+    </div>
+    
     <script>
         function removeMessage(button) {
             const messageItem = button.closest('li');
@@ -111,27 +114,7 @@
             }
         }
     
-        {% comment %} document.addEventListener('DOMContentLoaded', () => {
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const hiddenInput = document.getElementById('explore_interest');
-            let selectedButton = null;
     
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (selectedButton) {
-                        selectedButton.classList.remove('bg-yellow-400', 'text-white');
-                    }
-                    if (selectedButton !== button) {
-                        button.classList.add('bg-yellow-400', 'text-white');
-                        selectedButton = button;
-                        hiddenInput.value = button.dataset.value;
-                    } else {
-                        selectedButton = null;
-                        hiddenInput.value = '';
-                    }
-                });
-            });
-        }); {% endcomment %}
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

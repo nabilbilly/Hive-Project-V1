@@ -1,11 +1,16 @@
 
-{% extends 'Teamworkspace/TeamworkspaceActivebase.html' %}
+{% extends 'Teamworkspace/Teamworkspacebase.html' %}
+
+{% comment %} # Theo worked on this {% endcomment %}
 
 {% load static %}
+{% load custom_filters %}
 {% block title %}Team Workspace Dashboard{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'src/css/TeamworkspaceSettings.css' %}">
+    <link rel="stylesheet" href="{% static 'src/css/TeamworkspaceModals.css' %}">
+    <script src="{% static 'src/js/workspace.js' %}"></script>
+
 {% endblock %}
 
 {% block content %}

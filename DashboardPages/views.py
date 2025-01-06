@@ -11,7 +11,7 @@ from Accounts.models import Skill, UserProfile
 from TalentMatching.services import TalentMatchingService
 
 # Create your views here.
-@login_required(login_url='accounts:Login')
+@login_required
 def job_view(request):
     # Initialize the talent matching service
     matching_service = TalentMatchingService()
@@ -64,7 +64,7 @@ def job_view(request):
     
     return render(request, 'Job/jobpage.html', context)
 
-@login_required(login_url='accounts:Login')
+@login_required
 def dashboard_home(request):
     # Get user's job applications
     applications = JobApplication.objects.filter(user=request.user).order_by('-applied_at')
@@ -83,7 +83,7 @@ def dashboard_home(request):
     }
     return render(request, 'Job/dashboard_home.html', context)
 
-@login_required(login_url='accounts:Login')
+@login_required
 def job_search(request):
     query = request.GET.get('q', '')
     job_type = request.GET.get('type', '')
@@ -117,7 +117,7 @@ def job_search(request):
     }
     return render(request, 'Job/job_search.html', context)
 
-@login_required(login_url='accounts:Login')
+@login_required
 def job_detail(request, job_id):
     job = get_object_or_404(JobListing, id=job_id, is_active=True)
     has_applied = JobApplication.objects.filter(user=request.user, job=job).exists()
@@ -128,7 +128,7 @@ def job_detail(request, job_id):
     }
     return render(request, 'Job/job_detail.html', context)
 
-@login_required(login_url='accounts:Login')
+@login_required
 def apply_job(request, job_id):
     if request.method == 'POST':
         job = get_object_or_404(JobListing, id=job_id, is_active=True)
@@ -157,7 +157,7 @@ def apply_job(request, job_id):
         'message': 'Invalid request method.'
     })
 
-@login_required(login_url='accounts:Login')
+@login_required
 def my_applications(request):
     applications = JobApplication.objects.filter(user=request.user).order_by('-applied_at')
     
@@ -166,7 +166,7 @@ def my_applications(request):
     }
     return render(request, 'Job/my_applications.html', context)
 
-@login_required(login_url='accounts:Login')
+@login_required
 def update_preferences(request):
     if request.method == 'POST':
         preferences = JobSearchPreferences.objects.get_or_create(user=request.user)[0]
@@ -183,7 +183,7 @@ def update_preferences(request):
     }
     return render(request, 'Job/update_preferences.html', context)
 
-@login_required(login_url='accounts:Login')
+@login_required
 def report_job(request, job_id):
     if request.method == 'POST':
         job = get_object_or_404(JobListing, id=job_id)

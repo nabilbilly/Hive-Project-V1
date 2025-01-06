@@ -122,12 +122,15 @@
                 
             </div>
         </div>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="#" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
+        
+        <div class="bg-white flex items-center justify-center space-x-7 ">
+            <a href="{% url 'Email-Notification'%}"><button class=" text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" >Continue</button></a>
         </div>
         <div class="bg-white flex items-center justify-center space-x-7 ">
             <a href="{% url 'Team-Setup'%}"><button class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-md px-4 py-2 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
-            <a href="{% url 'Email-Notification'%}"><button class=" text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" >Continue</button></a>
+            <div class="bg-white flex items-center justify-center py-12">
+                <a href="{% url 'Email-Notification'%}" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
+            </div>
         </div>
     </div>
 

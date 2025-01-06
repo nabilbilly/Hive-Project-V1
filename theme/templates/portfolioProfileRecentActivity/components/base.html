@@ -1,0 +1,58 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Of English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .selected {
+            background-color: #FFC22666 !important;
+        }
+    </style>
+    {% tailwind_css %}
+</head>
+<body class="bg-white">
+
+  {% include './navbar.html' %}
+
+    {% block content %}
+    <!-- Content goes here -->
+    {% endblock %}
+    
+   
+  
+    <!-- JavaScript for Multi-Select with Limit -->
+  
+    
+    <script>
+        function scrollLeft() {
+            const slider = document.getElementById('slider');
+            slider.scrollBy({
+              left: -150, // Adjust scroll amount
+              behavior: 'smooth',
+            });
+          }
+          
+          function scrollRight() {
+            const slider = document.getElementById('slider');
+            slider.scrollBy({
+              left: 150, // Adjust scroll amount
+              behavior: 'smooth',
+            });
+          }
+          
+    </script>
+    
+    
+
+    
+</body>
+</html>
+

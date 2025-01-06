@@ -18,7 +18,31 @@
             <!-- Title and Subtitle -->
             <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">How many years of experience do you have?</h2>
         </div> 
-    </div> 
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages mb-4">
+            {% for message in messages %}
+            <li class="bg-yellow-50 border border-yellow-400 rounded text-yellow-800 text-sm flex items-center justify-between p-2 mb-2 relative">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="flex-1 mt-3">
+                        <span class="font-bold">Info:</span>
+                        {{ message }}
+                    </p>
+                </div>
+                <button type="button" class="ml-3 text-yellow-800 hover:text-yellow-600" aria-label="Close" onclick="removeMessage(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %} 
     <div class="flex flex-col items-center pb-10 px-4 sm:px-8 lg:px-32 bg-white px-4 sm:px-6 md:px-8 lg:pl-52 lg:pr-42 xl:px-20">
         <!-- Step-by-step Sidebar -->
         <div class="flex items-start w-full lg:justify-between">
@@ -54,42 +78,59 @@
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-4">
                     {% for option in YearsOfExperience_options %}
-                        <button class="category-btn px-2 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium">{{ option.name }} year </button>
-                    {%endfor%}
+                    <button type="button" class="category-btn flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
+                        {{ option.name }} years
+                    </button>
+                    {% endfor %}
                 </div>
-                <div class="text-center lg:text-left w-full mb-4 mt-16">
-                    <input type="text"  id="years" placeholder="Input years of experience" class="w-full border-2 border-black  text-sm lg:w-1/2 p-3  mb-5 rounded-lg">
-                        
-                </div>
+
+                <input type="hidden" name="YearsOfExperience" id="YearsOfExperience">
+                
             </div>
         </div>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="#" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
+       
+        <div class="bg-white flex items-center justify-center space-x-7">
+            <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
         </div>
-        <div class="bg-white flex items-center justify-center space-x-7 ">
-            <a href="{% url 'Experted-Earn' %}"> <button class="bg-gray-300 text-gray-700  hover:text-gray-700 font-md px-4 py-2 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;&nbsp;</button>
-            <a href="{% url 'Job-Experience' %}"><button class=" text-gray-700 font-md px-4 bg-yellow-400 hover:bg-yellow-500 py-2 rounded-md w-30">Continue</button>
+    </div>
+    </form>
+    <div class="bg-white flex items-center justify-center space-x-7">
+        <a href="{% url 'Experted-Earn' %}">
+            <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
+        </a>
+        <div class="bg-white flex items-center justify-center py-12">
+            <a href="{% url 'Job-Experience' %}" class="font-medium" style="color:#FDCE02">Skip Now</a>  
         </div>
     </div>
     <!-- JavaScript for Multi-Select with Limit -->
+  
     <script>
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        let selectedCount = 0;
-        const maxSelection = 1;
-
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('selected')) {
-                    // Deselecting a selected button
-                    button.classList.remove('selected');
-                    selectedCount--;
-                } else if (selectedCount < maxSelection) {
-                    // Selecting a new button if under the limit
-                    button.classList.add('selected');
-                    selectedCount++;
-                } else {
-                    alert(`You can select a maximum of ${maxSelection} options.`);
-                }
+        function removeMessage(button) {
+            const messageItem = button.closest('li');
+            if (messageItem) {
+                messageItem.remove();
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const hiddenInput = document.getElementById('YearsOfExperience');
+            let selectedButton = null;
+    
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (selectedButton) {
+                        selectedButton.classList.remove('bg-yellow-400', 'text-white');
+                    }
+                    if (selectedButton !== button) {
+                        button.classList.add('bg-yellow-400', 'text-white');
+                        selectedButton = button;
+                        hiddenInput.value = button.dataset.value;
+                    } else {
+                        selectedButton = null;
+                        hiddenInput.value = '';
+                    }
+                });
             });
         });
     </script>

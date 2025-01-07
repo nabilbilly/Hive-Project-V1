@@ -10,11 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 # SESSION_COOKIE_AGE = 300  # 5 minutes (or customize as needed)
 
 # # Ensure cookies are only sent over HTTPS
-# SESSION_COOKIE_SECURE = True  # Use in production with HTTPS enabled
-# settings.py
-TAILWIND_APP_NAME = 'theme'
-
-SESSION_COOKIE_SECURE = False  # Should be True in production with HTTPS
+# SESSION_COOKIE_SECURE = True  # Use in production with HTTPS enabled  PS
 SESSION_COOKIE_HTTPONLY = True
 
 # Load environment variables from .env file
@@ -149,6 +145,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'

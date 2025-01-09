@@ -91,18 +91,25 @@
                 
             </div>
         </div>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="#" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
-        </div>
-        <div class="bg-white flex items-center justify-center space-x-7">
-            <a href="{% url 'Job-List-Type' %}">
-                <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
-            </a>
-            <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
-        </div>
+       
+        
     </div>
-    <!-- JavaScript for Multi-Select with Limit -->
+    <div class="bg-white flex items-center justify-center space-x-7">
+            
+        <a href="{% url 'Job-List-Type' %}">
+            <button type="button" class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">
+                Back
+            </button>
+        </a>
+        <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">
+            Continue
+        </button>
+
+    </div>
 </form>
+    <!-- JavaScript for Multi-Select with Limit -->
+
+
 
 <script>
     function removeMessage(button) {
@@ -134,27 +141,6 @@
         });
     });
 </script>
-    <script>
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        let selectedCount = 0;
-        const maxSelection = 1;
-
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('selected')) {
-                    // Deselecting a selected button
-                    button.classList.remove('selected');
-                    selectedCount--;
-                } else if (selectedCount < maxSelection) {
-                    // Selecting a new button if under the limit
-                    button.classList.add('selected');
-                    selectedCount++;
-                } else {
-                    alert(`You can select a maximum of ${maxSelection} options.`);
-                }
-            });
-        });
-    </script>
     
 {% endblock %}
 

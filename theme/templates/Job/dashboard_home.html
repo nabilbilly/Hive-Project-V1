@@ -1,5 +1,16 @@
-{% extends 'Job/jobpagebase.html' %}
+{% extends 'Teamworkspace/Teamworkspacebase.html' %}
+
+{% comment %} # Theo worked on this {% endcomment %}
+
 {% load static %}
+{% load custom_filters %}
+{% block title %}Team Workspace Dashboard{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'src/css/TeamworkspaceModals.css' %}">
+    <script src="{% static 'src/js/workspace.js' %}"></script>
+
+{% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
@@ -75,7 +86,7 @@
             {% else %}
                 <div class="text-center py-8">
                     <p class="text-gray-500">Update your profile and preferences to get personalized job recommendations.</p>
-                    <a href="{% url 'dashboard:update_preferences' %}" class="mt-4 inline-block bg-yellow-400 text-black px-6 py-2 rounded-lg hover:bg-yellow-500">Update Preferences</a>
+                    <a href="{% url 'Update_Explore' %}" class="mt-4 inline-block bg-yellow-400 text-black px-6 py-2 rounded-lg hover:bg-yellow-500">Update Preferences</a>
                 </div>
             {% endif %}
         </div>
@@ -83,11 +94,11 @@
 
     <!-- Quick Actions Section -->
     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <a href="{% url 'dashboard:job_search' %}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+        <a href="{% url 'dashboard:job_view' %}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
             <h3 class="font-bold mb-2">Find Jobs</h3>
             <p class="text-gray-600">Search and filter jobs matching your skills</p>
         </a>
-        <a href="{% url 'dashboard:update_preferences' %}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+        <a href="{% url 'Update_Explore' %}" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
             <h3 class="font-bold mb-2">Update Preferences</h3>
             <p class="text-gray-600">Customize your job search preferences</p>
         </a>

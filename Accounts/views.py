@@ -43,7 +43,7 @@ def verify_email(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Email verified successfully. Log In now.')
-        return redirect('accounts:login')
+        return redirect('accounts:Login')
     else:
         messages.error(request, 'The verification link is invalid or has expired. Resend link')
         return redirect('accounts:SignUp')
@@ -77,7 +77,7 @@ def resend_verification(request):
             messages.error(request, 'Invalid email or user is already verified.')
     else:
         messages.error(request, 'Email parameter is missing.')
-    return redirect('accounts:login')
+    return redirect('accounts:Login')
 
 # Sign Up Pages 
 def SignUp(request):
@@ -86,7 +86,7 @@ def SignUp(request):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-    
+
             try:
                 validate_email(email)
             except ValidationError:
@@ -109,7 +109,7 @@ def SignUp(request):
             try:
                 send_verification_email(user, request)
                 messages.success(request, 'Please check your email to verify your account')
-                return redirect('accounts:login')
+                return redirect('accounts:Login')
             except Exception as e:
                 user.delete() 
                 messages.error(request, f'Failed to send verification email. Please try again . Error: {str(e)}')
@@ -122,7 +122,7 @@ def SignUp(request):
 
     return render(request, "Accounts/Signup.html", {'form': form})
 
-# Login Page View
+
 def Login(request):
     if request.method == "POST":
         email = request.POST.get('email').lower()
@@ -149,29 +149,15 @@ def Login(request):
                 user.save()
                 return redirect('accounts:Introduction')  # Redirect to introduction.html
 
-            # Check if user is admin/superuser
-            if user.is_superuser or user.is_staff:
-                return redirect('admin:index')  # Redirect to admin dashboard
-            else:
-                # Regular user - redirect to user dashboard
-                next_url = request.GET.get('next')
-                if next_url:
-                    return redirect(next_url)
-                return redirect('dashboard:job_view')
+            return redirect('dashboard:dashboard_home')
         else:
             messages.error(request, 'Invalid email or password')
-            return render(request, "Accounts/login.html")
 
     return render(request, "Accounts/login.html")
 
 def Introduction(request):
     return render(request, 'Accounts/introduction.html')
 
-# Log out User
-@login_required
-def LogoutUser(request):
-    logout(request)
-    return redirect('accounts:Login')
 
 # Otp Generation for Forget Password
 def generate_otp():
@@ -209,7 +195,7 @@ def ForgotPasswordEmail(request):
             return redirect('accounts:verify-otp', user_id=user.id)
         except User.DoesNotExist:
             messages.error(request, 'No user with this email address exists.')
-        return redirect('accounts:login')
+        return redirect('accounts:Login')
     return render(request, "Accounts/ForgotPasswordEmail.html")
 
 # Otp Verification Field with 5 input Box
@@ -246,7 +232,7 @@ def PasswordReset(request, user_id):
                 user.set_password(new_password)
                 user.save()
                 messages.success(request, 'Your password has been reset successfully. You can now log in with your new password.')
-                return redirect('accounts:login')
+                return redirect('accounts:Login')
             else:
                 messages.error(request, 'It must be at least 8 characters long and contain uppercase, lowercase, numbers, and special characters.')
         else:
@@ -258,4 +244,4 @@ def PasswordReset(request, user_id):
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have been successfully logged out.')
-    return redirect('accounts:login')
+    return redirect('accounts:Login')

@@ -12,7 +12,6 @@ import datetime
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)  # Category name (e.g., "Data Scientist")
-
     def __str__(self):
         return self.name
 
@@ -123,6 +122,7 @@ class UserProfile(models.Model):
 
 User.add_to_class('first_login', models.BooleanField(default=True))
 
+User.add_to_class('role', models.CharField(default='Hive', max_length=50))
 
 
 class OTP(models.Model):

@@ -103,6 +103,7 @@ def SignUp(request):
 
             user = form.save(commit=False)
             user.username = user.email
+            user.role = 'Hive' #setting user role as hive
             user.is_active = False
             user.save()
 
@@ -121,6 +122,7 @@ def SignUp(request):
         form = CustomUserCreationForm()
 
     return render(request, "Accounts/Signup.html", {'form': form})
+
 
 
 def Login(request):
@@ -143,13 +145,18 @@ def Login(request):
 
         if user is not None:
             login(request, user)
+            # Toast message after login
+            messages.success(request, f"Hey {user.first_name}! Great to have you here!")
+            
+            if user.role == 'Hive':
+                if user.first_login:
+                    user.first_login = False
+                    user.save()
+                    return redirect('accounts:Introduction')  # Redirect to introduction.html
 
-            if user.first_login:
-                user.first_login = False
-                user.save()
-                return redirect('accounts:Introduction')  # Redirect to introduction.html
-
-            return redirect('dashboard:dashboard_home')
+                return redirect('dashboard:dashboard_home')
+            else:
+                return redirect('dashboard:dashboard_home')  # Redirect to employer dashboard
         else:
             messages.error(request, 'Invalid email or password')
 

@@ -112,6 +112,14 @@ class UserPreferenceAdmin(admin.ModelAdmin):
         return ", ".join([str(min_salary) for min_salary in obj.min_salary])
     get_min_salary.short_description = "min salary"
 
+    def get_portfolio_url(self, obj):
+        return ", ".join([str(portfolio_url) for portfolio_url in obj.portfolio_url])
+    get_portfolio_url.short_description = "phone_number"
+    
+    def get_phone_number(self, obj):
+        return ", ".join([str(phone_number) for phone_number in obj.phone_number])
+    get_phone_number.short_description = "phone_number"
+    
     def get_max_salary(self, obj):
         return ", ".join([str(max_salary) for max_salary in obj.max_salary])
     get_max_salary.short_description = "max salary"

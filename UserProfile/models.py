@@ -109,6 +109,8 @@ class UserPreference(models.Model):
     country_location = models.ManyToManyField(Country, related_name="user_country_locations")
     work_locations = models.ManyToManyField(LocationOfWork, related_name="user_work_locations")
     job_types = models.ManyToManyField(JobListType, related_name="user_job_types")
+    portfolio_url = models.URLField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True)
     work_schedules = models.ManyToManyField(WorkSchedule, related_name="user_work_schedules")
     employment_options = models.ManyToManyField(EmploymentOption, related_name="user_employment_options")
     team_setups = models.ManyToManyField(TeamSetup, related_name="user_team_setups")

@@ -306,11 +306,11 @@ from django.http import JsonResponse
 # def Teamview(request):
 #     return render(request, 'Job/TeamworkspaceDashboard.html')
 
-@login_required(login_url='Login')
+@login_required()
 def TeamworkspaceChat(request):
     return render(request, 'Teamworkspace/TeamworkspaceChat.html')
 
-@login_required(login_url='Login')
+@login_required()
 def TeamworkspaceSettings(request):
     return render(request, 'Teamworkspace/TeamworkspaceSettings.html')
 

@@ -513,13 +513,13 @@ def updateEnglish(request):
         'active_page': 'language',
         'EnglishLevel_options': EnglishLevel.objects.all()
     }
-    return render(request, 'portfolioProfileRecentActivity/EnglishLevel.html',context)
+    return render(request, 'portfolioprofileUpdate/EnglishLevel.html',context)
 
 def updateExperted(request):
     context = {
         'active_page': 'earning',  # Set this dynamically based on the current page
     }
-    return render(request, 'portfolioProfileRecentActivity/ExpertedEarn.html',context)
+    return render(request, 'portfolioprofileUpdate/ExpertedEarn.html',context)
 @login_required
 def updateExplore(request):
     # Fetch the user's stored preference
@@ -531,7 +531,7 @@ def updateExplore(request):
         'interest_options': ExploreInterest.objects.all(),
         'stored_preference_ids': stored_preference_ids  
     }
-    return render(request, 'portfolioProfileRecentActivity/Exploreinterest.html', context)
+    return render(request, 'portfolioprofileUpdate/Exploreinterest.html', context)
 
 def updateExperience(request):
     context = {
@@ -540,21 +540,21 @@ def updateExperience(request):
         'JobExperience_options': JobExperience.objects.all()
         
     }
-    return render(request, 'portfolioProfileRecentActivity/JobExperience.html',context)
+    return render(request, 'portfolioprofileUpdate/JobExperience.html',context)
 
 def updateEducation(request):
     context = {
         'active_page': 'education',
         'LevelOfEducation_options': LevelOfEducation.objects.all()
     }
-    return render(request, 'portfolioProfileRecentActivity/LevelOfEducation.html',context)
+    return render(request, 'portfolioprofileUpdate/LevelOfEducation.html',context)
 
 def updateTeam(request):
     context = {
         'active_page': 'team_setup', 
         'TeamSetup_options': TeamSetup.objects.all()
     }
-    return render(request, 'portfolioProfileRecentActivity/TeamSetup.html',context)
+    return render(request, 'portfolioprofileUpdate/TeamSetup.html',context)
 
 def updateSchedule(request):
     context = {
@@ -562,7 +562,7 @@ def updateSchedule(request):
         'interest_options': LocationOfWork.objects.all(),
         'Country': Country.objects.all()# Set this dynamically based on the current page
     }
-    return render(request, 'portfolioProfileRecentActivity/WorkSchedule.html',context)
+    return render(request, 'portfolioprofileUpdate/WorkSchedule.html',context)
 
 def updateWorkStatus(request):
     context = {
@@ -572,7 +572,7 @@ def updateWorkStatus(request):
         'work_schedule_options': WorkSchedule.objects.all()
         
     }
-    return render(request, 'portfolioProfileRecentActivity/Workstatus.html',context)
+    return render(request, 'portfolioprofileUpdate/Workstatus.html',context)
 
 
 

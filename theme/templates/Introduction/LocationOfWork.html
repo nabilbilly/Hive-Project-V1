@@ -36,10 +36,14 @@
          <a href="#"> <img src="{% static 'images/logo/CashHivelogo.png' %}" alt="Hive Logo" class="h-10 mr-3"> </a>
         
     </div>
-    <div class="w-full max-w-3xl mb-8 p-6">
-        <!-- Title and Subtitle -->
-        <h2 class="text-lg  font-bold text-center lg:text-2xl  text-gray-900 mb-2">What are your geographical preferences? &nbsp;</h2>
-    </div>
+    
+    <div class="bg-white flex items-center justify-center ">
+
+        <div class="w-full max-w-3xl mb-8 p-6">
+            <!-- Title and Subtitle -->
+            <h2 class="lg:text-2xl text-lg font-bold text-center text-gray-900 mb-2">What are your geographical preferences?</h2>
+        </div> 
+    </div> 
     <div class="bg-white flex items-center justify-center ">
         <form id="interestForm" method="post">
             {% csrf_token %}
@@ -122,11 +126,11 @@
                 <div class="flex items-center mt-10 mb-4">
                     <input id="work-location" type="checkbox" class="form-checkbox h-5 w-5 text-yellow-500 rounded focus:ring-0" />
                     <label for="work-location" class="ml-3 text-sm text-gray-800">
-                        Includes jobs from where you want to work in:
+                        Only includes jobs from where I want to work:
                     </label>
                 </div>
                 
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-4">
+                <div class="grid grid-cols-3 sm:grid-cols-3 gap-5 mt-4">
                     {% for option in interest_options %}
                     <button type="button" class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium" data-id="{{ option.id }}">
                         {{ option.name }}
@@ -143,21 +147,21 @@
                 </div>
             </div>
        </div>
+    </div>
+    <div class="bg-white flex items-center justify-center space-x-7">
             
-            <div class="bg-white flex items-center justify-center space-x-7">
-                <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
-            </div>
-        
+        <a href="{% url 'English-Level' %}">
+            <button type="button" class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">
+                Back
+            </button>
+        </a>
+        <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">
+            Continue
+        </button>
+
     </div>
-   </form> 
-   <div class="bg-white flex items-center justify-center space-x-7">
-    <a href="{% url 'English-Level' %}">
-        <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
-    </a>
-    <div class="bg-white flex items-center justify-center py-12">
-        <a href="{% url 'Employment-Option' %}" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
-    </div>
-</div>
+</form>
+
    <script>
     function removeMessage(button) {
         const messageItem = button.closest('li');

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Popup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="bg-gray-100">
+        <!-- Trigger Button -->
+        <div class="flex justify-center mt-10">
+            <button id="profileBtn" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+            Open Profile
+            </button>
+        </div>
+
+        <!-- Popup Modal -->
+        <div id="popup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+         <div class="bg-gray-100 w-full  max-w-lg rounded-lg shadow-lg p-5 overflow-y-auto max-h-[90vh]">
+            <!-- Close Button -->
+            <button id="closeBtn" class="text-gray-500 hover:text-gray-800 float-right text-xl font-bold">&times;</button>
+            
+            <!--     --------------------------- Tabs Navigation --------------- -->
+            <div class="border-b p-4 bg-white shadow-lg  mb-4">
+                <ul class="flex justify-center space-x-4 text-gray-600">
+                <li><button data-tab="edit-title" class="tab-btn text-yellow-500 font-bold border-b-2 border-yellow-500">Edit Title</button></li>
+                <li><button data-tab="edit-description" class="tab-btn">Edit Description</button></li>
+                <li><button data-tab="showcase-skills" class="tab-btn">Showcase Skills</button></li>
+                </ul>
+            </div>
+
+            <!-- ------------------------------- Tabs Content for Edit title, edit-description and showcase-skill-->
+
+             <!-- ----------------------  Edit title Starts from here-------------------- -->
+            <div id="edit-title" class="tab-content">
+                <div class="bg-white shadow-lg  p-4">
+                    <h2 class="text-lg font-bold mb-2">Edit Title</h2>
+                    <input type="text" placeholder="Enter Title" class="w-full border rounded p-2">
+                </div>
+            </div>
+            <!-- ----------------------  Edit title Ends here-------------------- -->
+
+            <!------------------------------------------ Edit-description starts from here ------------------------------------------------ -->
+            <div id="edit-description" class="tab-content hidden">
+                <div class="bg-white  p-4">
+                    <h2 class="text-lg font-bold mb-2">Portfolio Description</h2>
+                    <h2 class="text-sm  font-md text-gray-500 mb-2">Showcase your profession and attract clients by highlighting your skills, expertise, and portfolio in your profile. 
+                        Share your specialties, notable projects, and relevant training or certifications. Keep it concise and error-free.</h2>
+                        <textarea 
+                        id="descriptionTextarea"
+                        placeholder="With over 10 years of experience in masonry, I specialize in constructing durable and aesthetically pleasing structures. My work spans residential, commercial, and public projects. I take pride in my attention to detail and commitment to delivering high-quality results on time and within budget...
+                        Bricklaying
+                        Stone masonry
+                        Repair and restoration...
+                        Decorative masonry" 
+                        class="w-full border-2 border-black rounded p-2 h-42"
+                        maxlength="5000">
+                      </textarea>
+                    
+                      <!-- Character counter -->
+                      <h4 id="charCount" class="text-sm font-md mb-2 mt-2 flex justify-end">5000 characters left</h4>
+                        
+                      <!-- Continue Button -->
+                        <div class="mt-7 mb-3 space-x-3 flex justify-center">
+                            <button class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">Cancel</button>
+                            <button class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Continue</button>
+                        </div>
+
+                        
+                </div>
+
+                <div class="bg-white mt-10 shadow-[0_-4px_6px_rgba(0,0,0,0.1)] rounded-b-2xl  ">
+                    <div class="flex items-center justify-center bg-white p-4 rounded-md">
+                        <!-- Step 1 -->
+                        <div class="flex items-center">
+                          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-400 text-white font-bold">1</div>
+                          <div class="w-8 h-1 bg-yellow-400"></div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="flex items-center">
+                          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-400 text-white font-bold">2</div>
+                          <div class="w-8 h-1 bg-gray-300"></div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="flex items-center">
+                          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white font-bold">3</div>
+                        </div>
+                      </div>
+                        
+                </div>
+            </div>
+            <!------------------------------------------ edit-description Ends here ------------------------------------------------ -->
+
+             <!------------------------------------------ showcase-skills starts from here ------------------------------------------------ -->
+            <div id="showcase-skills" class="tab-content  hidden">
+                <div class="bg-white shadow-sm mb-10  p-4">
+                    <h2 class="text-lg font-bold mb-3">Portfolio Description</h2>
+                    <h2 class="text-sm  font-md text-gray-500 mb-2">Showcase your profession and attract clients by highlighting your skills, expertise, and portfolio in your profile. 
+                        Share your specialties, notable projects, and relevant training or certifications. Keep it concise and error-free.</h2>
+                       
+                   <!-- Portfolio Link input field  -->
+                    <label for="portfolio" class="block text-sm font-semibold mt-10 mb-2">Portfolio Link <span class=" text-sm text-gray-400">(Optional)</span></label>
+                    <input
+                        type="url"
+                        id="portfolio"
+                        placeholder="username@yourwebsite.com"
+                        class="w-full border-2 border-black rounded p-2 mb-4" required
+                    />
+
+                    <!-- LinkedIn  input field-->
+                    <label for="linkedin" class="block text-sm mt-10 font-semibold mb-2">LinkedIn</label>
+                    <input
+                        type="url"
+                        id="linkedin"
+                        placeholder="LinkedIn profile URL"
+                        class="w-full border-2 border-black rounded p-2 mb-4" required
+                    />
+
+                     <!-- CV or Resume  Drag or input field -->
+                    <label for="resume" class="block text-sm mt-10 font-semibold mb-2">Upload your CV or Resume</label>
+                    <div class="border-2 border-dashed border-yellow-400 rounded p-4 flex items-center justify-center mb-4">
+                        <label class="flex flex-col items-center">
+                        <input type="file" id="resume" class="hidden" />
+                        <span class="text-sm text-gray-600">Click to upload or drag and drop</span>
+                        <span class="text-sm text-gray-500">PDF, DOC, max size: 5MB</span>
+                        </label>
+                    </div>
+
+                    <!-- CV Cover Drag or input field -->
+                    <label for="cv-cover" class="block mt-10 text-sm font-semibold mb-2">Upload your CV Cover</label>
+                    <div class="border-2 border-dashed border-yellow-400 rounded p-4 flex items-center justify-center mb-4">
+                        <label class="flex flex-col items-center">
+                        <input type="file" id="cv-cover" class="hidden" />
+                        <span class="text-sm text-gray-600">Click to upload or drag and drop</span>
+                        <span class="text-sm text-gray-500">PDF, DOC, max size: 5MB</span>
+                        </label>
+                    </div>
+
+                     <!-- Portfolio Upload -->
+                    <label for="portfolio-file" class="block text-sm font-semibold mb-2 mt-10">Upload your Portfolio <span class=" text-sm text-gray-400">(Optional)</span> </label>
+                    <div class="border-2 border-dashed border-yellow-400 rounded p-4 flex items-center justify-center mb-4">
+                        <label class="flex flex-col items-center">
+                        <input type="file" id="portfolio-file" class="hidden" />
+                        <span class="text-sm text-gray-600">Click to upload or drag and drop</span>
+                        <span class="text-sm text-gray-500">PDF, DOC, max size: 5MB</span>
+                        </label>
+                    </div>
+
+                    <!-- Buttons for Cancel or Continue -->
+                    <div class="mt-10 mb-3 space-x-3 flex justify-center">
+                        <button class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">Cancel</button>
+                        <button class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Continue</button>
+                    </div>
+                    
+                </div>
+
+                <div class="bg-white mt-10 shadow-[0_-4px_6px_rgba(0,0,0,0.1)] rounded-b-2xl  ">
+                    <div class="flex items-center justify-center bg-white p-4 rounded-md">
+                        <!-- Step 1 -->
+                        <div class="flex items-center">
+                          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-400 text-white font-bold">1</div>
+                          <div class="w-8 h-1 bg-yellow-400"></div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="flex items-center">
+                          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-400 text-white font-bold">2</div>
+                          <div class="w-8 h-1 bg-yellow-400"></div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="flex items-center">
+                          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-400 text-white font-bold">3</div>
+                        </div>
+                      </div>
+                        
+                </div>
+
+
+
+            </div>
+            <!------------------------------------------ showcase-skills Ends here ------------------------------------------------ -->
+            
+            <!-- Continue Button
+            <div class="mt-5 flex justify-end">
+                <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Continue</button>
+            </div> -->
+            </div>
+        </div>
+    </div>
+
+
+  <!-- ----------------------------------------- Profile change  JavaScript start from here -------------------------------------------------- -->
+  <script>
+    const profileBtn = document.getElementById('profileBtn');
+    const popup = document.getElementById('popup');
+    const closeBtn = document.getElementById('closeBtn');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    // Open popup
+    profileBtn.addEventListener('click', () => {
+      popup.classList.remove('hidden');
+    });
+
+    // Close popup
+    closeBtn.addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
+
+    // Close popup when clicking outside
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) {
+        popup.classList.add('hidden');
+      }
+    });
+
+    // Tab navigation
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+
+        // Toggle active state
+        tabBtns.forEach(b => b.classList.remove('text-yellow-500', 'font-bold', 'border-yellow-500', 'bg-yellow-100',));
+        btn.classList.add('text-black', 'font-lg', 'border-yellow-500', 'bg-yellow-100', 'rounded-lg','px-2');
+
+        // Show corresponding tab
+        tabContents.forEach(content => {
+          content.id === target ? content.classList.remove('hidden') : content.classList.add('hidden');
+        });
+      });
+    });
+  </script>
+  <script>
+    // JavaScript functionality for the Maximum character limit
+    const textarea = document.getElementById('descriptionTextarea');
+    const charCount = document.getElementById('charCount');
+    const maxLength = 5000; // Maximum character limit
+  
+    textarea.addEventListener('input', () => {
+      const remaining = maxLength - textarea.value.length;
+      charCount.textContent = `${remaining} characters left`;
+    });
+  </script>
+
+  <!-- ----------------------------------------- Profile Change  JavaScript Ends here -------------------------------------------------- -->
+</body>
+</html>

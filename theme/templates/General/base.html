@@ -52,20 +52,20 @@
                     </a>
                 </nav>            
                     
-                    {% if not user.is_authenticated %}
+                    {% comment %} {% if not user.is_authenticated %} {% endcomment %}
                         <a href="{% url 'accounts:Login'%}" class=" bg-white text-black font-semibold  hover:text-black" style="text-decoration: none;padding:10px 20px 10px 20px;border-radius:10px;box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);">Log&nbsp;in</a>
                         <a href="{% url 'accounts:SignUp' %}" class=" text-black font-semibold  hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;"
                          onmouseover="this.style.color='black'; this.style.backgroundColor='#FDCE02'; "  onmouseout="this.style.color='black'; this.style.backgroundColor='#FDCE02';">
                          Sign&nbsp;up
                         </a>
-                    {% else %}
+                    {% comment %} {% else %}
                         <form method="post" action="{% url 'accounts:LogoutUser' %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="text-black font-semibold hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;">
                                 Log&nbsp;out
                             </button>
                         </form>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                 </div>
             </div>
         </div>

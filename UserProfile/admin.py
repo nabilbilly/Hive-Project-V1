@@ -107,7 +107,7 @@ class UserPreferenceAdmin(admin.ModelAdmin):
     def get_bio_data(self, obj):
         return ", ".join([str(bio_data) for bio_data in obj.bio_data])
     get_bio_data.short_description = "Bio Data"
-    
+     
     def get_min_salary(self, obj):
         return ", ".join([str(min_salary) for min_salary in obj.min_salary])
     get_min_salary.short_description = "min salary"

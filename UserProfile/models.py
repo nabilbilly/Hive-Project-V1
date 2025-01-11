@@ -128,5 +128,5 @@ class UserPreference(models.Model):
     def __str__(self):
         return f"Preferences for {self.user.username}"
 
-    def __str__(self):
-        return "Enabled" if self.emailSend else "Disabled"
+    # def __str__(self):
+    #     return "Enabled" if self.emailSend else "Disabled"

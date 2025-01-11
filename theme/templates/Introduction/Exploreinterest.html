@@ -75,7 +75,6 @@
     
             <!-- Main Content -->
             <div class="flex flex-col items-center lg:items-start w-full lg:w-2/2 lg:pl-24 ">
-
                     <div class="text-center lg:text-left ">
                         <p class="text-gray-600 mb-6">Select up to 3 interests that best match your skills</p>
                         
@@ -89,22 +88,24 @@
                         </div>
                         <input type="hidden" name="explore_interest" id="explore_interest">
                     </div>
-                </form>
             </div>
         </div>
+        
+     </div>
         <div class="bg-white flex items-center justify-center space-x-7">
-            <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
+            
+            <a href="{% url 'accounts:Introduction' %}">
+                <button type="button" class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">
+                    Back
+                </button>
+            </a>
+            <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">
+                Continue
+            </button>
+
         </div>
-    </div>
     </form>
-    <div class="bg-white flex items-center justify-center space-x-7">
-        <a href="{% url 'Level-Of-Education' %}">
-            <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
-        </a>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="{% url 'Experted-Earn' %}" class="font-medium" style="color:#FDCE02">Skip Now</a>  
-        </div>
-    </div>
+    
     
     <script>
         function removeMessage(button) {

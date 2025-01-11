@@ -88,21 +88,21 @@
 
             </div>
         </div>
-       
-        <div class="bg-white flex items-center justify-center space-x-7">
-            <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
-        </div>
     </div>
-    </form>
     <div class="bg-white flex items-center justify-center space-x-7">
+            
         <a href="{% url 'Job-Experience' %}">
-            <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
+            <button type="button" class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">
+                Back
+            </button>
         </a>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="{% url 'English-Level' %}" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
-        </div>
+        <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">
+            Continue
+        </button>
 
     </div>
+</form>
+    
     <!-- JavaScript for Multi-Select with Limit -->
     <script>
         const categoryButtons = document.querySelectorAll('.category-btn');

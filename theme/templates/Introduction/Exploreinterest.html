@@ -86,7 +86,8 @@
                             </button>
                             {% endfor %}
                         </div>
-                        <input type="hidden" name="explore_interest" id="explore_interest">
+                        <input type="hidden" name="explore_interest" id="explore_interest" value="{{ selected_interest_ids|join:',' }}">
+                        {% comment %} <input type="hidden" name="explore_interest" id="explore_interest"> {% endcomment %}
                     </div>
             </div>
         </div>
@@ -117,6 +118,65 @@
     
     
     </script>
+    
+        {% comment %} <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('interestForm'); // Ensure your form has this ID
+                const selectedCategoriesInput = document.getElementById('explore_interest');
+                const buttons = document.querySelectorAll('.category-btn');
+                const selectedCategories = new Set();
+        
+                // Load saved categories if they exist
+                const savedCategories = selectedCategoriesInput.value;
+                if (savedCategories) {
+                    savedCategories.split(',').forEach(id => {
+                        selectedCategories.add(id);
+                        const button = document.querySelector(`[data-id="${id}"]`);
+                        if (button) {
+                            button.classList.add('selected');
+                            button.style.background = '#FFC22666'; // Custom highlight color
+                        }
+                    });
+                }
+        
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const categoryId = this.dataset.id;
+                        
+                        if (selectedCategories.has(categoryId)) {
+                            // Deselect the category
+                            selectedCategories.delete(categoryId);
+                            this.classList.remove('selected');
+                            this.style.background = '';
+                        } else {
+                            // Select the category (limit to 5 selections)
+                            if (selectedCategories.size >= 5) {
+                                alert('You can select up to 5 categories only.');
+                                return;
+                            }
+                            selectedCategories.add(categoryId);
+                            this.classList.add('selected');
+                            this.style.background = '#FFC22666'; // Custom highlight color
+                        }
+        
+                        // Update the hidden input with selected category IDs
+                        selectedCategoriesInput.value = Array.from(selectedCategories).join(',');
+                    });
+                });
+        
+                // Handle form submission with validation
+                document.querySelector('.next-button').addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default behavior
+                    if (selectedCategories.size === 0) {
+                        alert('Please select at least one category');
+                        return;
+                    }
+                    form.submit(); // Submit the form
+                });
+            });
+        </script>
+        
+    </script> {% endcomment %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('interestForm');
@@ -164,5 +224,5 @@
                 form.submit();
             });
         });
-    </script>
+    </script> 
 {%endblock%}

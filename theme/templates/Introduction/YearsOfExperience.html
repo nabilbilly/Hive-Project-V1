@@ -78,13 +78,17 @@
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-4">
                     {% for option in YearsOfExperience_options %}
-                    <button type="button" class="category-btn flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
+                    <button type="button" class="category-btn flex items-center justify-center px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium {% if option in selected_options %}bg-yellow-400 text-white{% else %}bg-gray-200 text-gray-800{% endif %}"  data-value="{{ option.name }}">
                         {{ option.name }} 
                     </button>
                     {% endfor %}
                 </div>
-
-                <input type="hidden" name="YearsOfExperience" id="YearsOfExperience">
+                <input 
+        type="hidden" 
+        name="YearsOfExperience" 
+        id="YearsOfExperience" 
+        value="{% for option in selected_options %}{{ option.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
+                {% comment %} <input type="hidden" name="YearsOfExperience" id="YearsOfExperience" value="{% for option in selected_options %}{{ option.name }}{% if not forloop.last %},{% endif %}{% endfor %}"> {% endcomment %}
                 
             </div>
         </div>
@@ -112,28 +116,41 @@
                 messageItem.remove();
             }
         }
-    
+        
         document.addEventListener('DOMContentLoaded', () => {
             const categoryButtons = document.querySelectorAll('.category-btn');
             const hiddenInput = document.getElementById('YearsOfExperience');
             let selectedButton = null;
     
+            // Pre-select the button if a value exists
+            const savedValue = hiddenInput.value;
+            if (savedValue) {
+                const preSelectedButton = Array.from(categoryButtons).find(
+                    button => button.dataset.value === savedValue
+                );
+                if (preSelectedButton) {
+                    preSelectedButton.classList.add('bg-yellow-400', 'text-white');
+                    selectedButton = preSelectedButton;
+                }
+            }
+    
+            // Add click event listener to each button
             categoryButtons.forEach(button => {
                 button.addEventListener('click', () => {
+                    // Deselect the previously selected button
                     if (selectedButton) {
                         selectedButton.classList.remove('bg-yellow-400', 'text-white');
                     }
-                    if (selectedButton !== button) {
-                        button.classList.add('bg-yellow-400', 'text-white');
-                        selectedButton = button;
-                        hiddenInput.value = button.dataset.value;
-                    } else {
-                        selectedButton = null;
-                        hiddenInput.value = '';
-                    }
+    
+                    // Select the clicked button
+                    button.classList.add('bg-yellow-400', 'text-white');
+                    selectedButton = button;
+                    hiddenInput.value = button.dataset.value; // Update the hidden input value
                 });
             });
         });
-    </script>
+        
+    </script> 
+    
 
 {% endblock %}

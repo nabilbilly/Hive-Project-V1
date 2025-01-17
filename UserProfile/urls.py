@@ -25,5 +25,6 @@ urlpatterns = [
     path('UpdateStatus/', views.updateWorkStatus, name='Update_WorkStatus'),
     path('UpdateTeam/', views.updateTeam, name='Update_Team'),
     
+    path('RecentActivity/', views.RecentActivity, name='RecentActivity'),
     
 ]

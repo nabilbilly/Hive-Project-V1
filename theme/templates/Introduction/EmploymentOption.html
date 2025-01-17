@@ -67,19 +67,22 @@
                         </svg>
                 </div>
             </div>
-           
-            <!-- Employment Options -->
-            <div class="flex-1 items-center justify-center grid-cols-3 sm:grid-cols-3 gap-20 mt-4">
 
+            <div class="flex flex-col items-center lg:items-start w-full lg:w-2/2 lg:pl-16 ">
+                <!-- Categories Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-5 mt-4">
                     {% for option in employment_options %}
 
                     <button type="button" class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
                         {{ option.name }}
                     </button>
 
-                    {% endfor %}
+                    {% endfor %}</div>
                     <input type="hidden" name="employment_option" id="employment_option">
+                
             </div>
+           
+         </div> 
         </div> 
 
 <div class="bg-white flex items-center justify-center space-x-7">

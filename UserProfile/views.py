@@ -39,6 +39,46 @@ def render_with_context(request, model, template_name, context_key, preference_f
     return render(request, template_name, context)
 
 
+# @login_required
+# def Explore(request):
+#     if request.method == 'POST':
+#         selected_interest_ids = request.POST.get('explore_interest', '')  # Get the selected options as a string
+#         selected_interest_ids = selected_interest_ids.split(',')  # Split the string into a list
+
+#         if not selected_interest_ids or selected_interest_ids == ['']:
+#             messages.error(request, "Please select your interest.")
+#             return render(request, 'Introduction/Exploreinterest.html', {'interest_options': ExploreInterest.objects.all()})
+
+#         if len(selected_interest_ids) > 5:  # Updated limit to 5
+#             messages.error(request, "You can select up to 5 interests only.")
+#             return render(request, 'Introduction/Exploreinterest.html', {'interest_options': ExploreInterest.objects.all()})
+
+#         # Validate input to ensure IDs are numeric
+#         if not all(i.isdigit() for i in selected_interest_ids):
+#             messages.error(request, "Invalid selection. Please try again.")
+#             return render(request, 'Introduction/Exploreinterest.html', {'interest_options': ExploreInterest.objects.all()})
+
+#         user = request.user  # Get the current authenticated user
+#         user_preference, created = UserPreference.objects.get_or_create(user=user)
+
+#         # Fetch the ExploreInterest instances
+#         explore_interest = ExploreInterest.objects.filter(id__in=selected_interest_ids)
+
+#         # Update the user's interests
+#         user_preference.explore_interests.set(explore_interest)  # Use set() to update many-to-many
+#         user_preference.save()
+
+#         if created:
+#             messages.success(request, "Your interest preferences have been saved.")
+#         else:
+#             messages.success(request, "Your interest preferences have been updated.")
+
+#         return redirect('Experted-Earn')  # Redirect to the next step
+
+#     # Render the template for a GET request
+#     context = {'interest_options': ExploreInterest.objects.all()}
+#     return render(request, 'Introduction/Exploreinterest.html', context)
+
 @login_required
 def Explore(request):
     if request.method == 'POST':
@@ -47,16 +87,25 @@ def Explore(request):
 
         if not selected_interest_ids or selected_interest_ids == ['']:
             messages.error(request, "Please select your interest.")
-            return render(request, 'Introduction/Exploreinterest.html', {'interest_options': ExploreInterest.objects.all()})
+            return render(request, 'Introduction/Exploreinterest.html', {
+                'interest_options': ExploreInterest.objects.all(),
+                'selected_interest_ids': [],  # Pass an empty list if no selection
+            })
 
         if len(selected_interest_ids) > 5:  # Updated limit to 5
             messages.error(request, "You can select up to 5 interests only.")
-            return render(request, 'Introduction/Exploreinterest.html', {'interest_options': ExploreInterest.objects.all()})
+            return render(request, 'Introduction/Exploreinterest.html', {
+                'interest_options': ExploreInterest.objects.all(),
+                'selected_interest_ids': selected_interest_ids,  # Preserve the user's current selection
+            })
 
         # Validate input to ensure IDs are numeric
         if not all(i.isdigit() for i in selected_interest_ids):
             messages.error(request, "Invalid selection. Please try again.")
-            return render(request, 'Introduction/Exploreinterest.html', {'interest_options': ExploreInterest.objects.all()})
+            return render(request, 'Introduction/Exploreinterest.html', {
+                'interest_options': ExploreInterest.objects.all(),
+                'selected_interest_ids': selected_interest_ids,  # Preserve the user's current selection
+            })
 
         user = request.user  # Get the current authenticated user
         user_preference, created = UserPreference.objects.get_or_create(user=user)
@@ -75,10 +124,20 @@ def Explore(request):
 
         return redirect('Experted-Earn')  # Redirect to the next step
 
-    # Render the template for a GET request
-    context = {'interest_options': ExploreInterest.objects.all()}
-    return render(request, 'Introduction/Exploreinterest.html', context)
+    # For a GET request, fetch the user's saved interests
+    user = request.user
+    try:
+        user_preference = UserPreference.objects.get(user=user)
+        saved_interest_ids = user_preference.explore_interests.values_list('id', flat=True)
+    except UserPreference.DoesNotExist:
+        saved_interest_ids = []
 
+    # Render the template with interest options and saved selections
+    context = {
+        'interest_options': ExploreInterest.objects.all(),
+        'selected_interest_ids': saved_interest_ids,
+    }
+    return render(request, 'Introduction/Exploreinterest.html', context)
 
 @login_required
 def ExpertedEarns(request):
@@ -116,64 +175,114 @@ def ExpertedEarns(request):
 
     return render(request, 'Introduction/ExpertedEarn.html')
 
+# @login_required
+# def YearsOfExperiences(request):
+#     if request.method == 'POST':
+#         selected_years_of_experience_options = request.POST.get('YearsOfExperience')  # Get the selected option from POST data
+#         if not selected_years_of_experience_options:
+#             messages.error(request, "Please select your Years Of Experience_options.")
+#             return render(request, 'Introduction/YearsOfExperience.html', {'YearsOfExperience_options': YearsOfExperience.objects.all()})
+
+#         user = request.user  # Get the current authenticated user
+#         # Check if the user already has a preference for English level
+#         user_preference, created = UserPreference.objects.get_or_create(user=user)
+
+#         # Fetch the JobListType instance
+#         try:
+#             years_of_experience_options = YearsOfExperience.objects.get(name=selected_years_of_experience_options)
+#         except YearsOfExperience.DoesNotExist:
+#             messages.error(request, "The selected Years Of Experience_options does not exist.")
+#             return render(request, 'Introduction/YearsOfExperience.html', {'YearsOfExperience_options': YearsOfExperience.objects.all()})
+
+#         # Update the user's English levels
+#         user_preference.years_experience.set([years_of_experience_options])  # Use set() to update many-to-many
+#         user_preference.save()
+
+#         if created:
+#             messages.success(request, "Your Years Of Experience_options preference has been saved.")
+#         else:
+#             messages.success(request, "Your Years Of Experience_options preference has been updated.")
+
+#         return redirect('Job-Experience')  # Redirect to the next step
+
+#     # Render the template for a GET request
+#     context = {'YearsOfExperience_options': YearsOfExperience.objects.all()}
+#     return render(request, 'Introduction/YearsOfExperience.html', context)
 @login_required
 def YearsOfExperiences(request):
+    user = request.user  # Get the current authenticated user
+    user_preference, created = UserPreference.objects.get_or_create(user=user)
+
     if request.method == 'POST':
         selected_years_of_experience_options = request.POST.get('YearsOfExperience')  # Get the selected option from POST data
         if not selected_years_of_experience_options:
-            messages.error(request, "Please select your Years Of Experience_options.")
-            return render(request, 'Introduction/YearsOfExperience.html', {'YearsOfExperience_options': YearsOfExperience.objects.all()})
+            messages.error(request, "Please select your Years Of Experience options.")
+            context = {
+                'YearsOfExperience_options': YearsOfExperience.objects.all(),
+                'selected_options': user_preference.years_experience.all()  # Pre-fill selected options
+            }
+            return render(request, 'Introduction/YearsOfExperience.html', context)
 
-        user = request.user  # Get the current authenticated user
-        # Check if the user already has a preference for English level
-        user_preference, created = UserPreference.objects.get_or_create(user=user)
-
-        # Fetch the JobListType instance
+        # Fetch the selected YearsOfExperience instance
         try:
-            years_of_experience_options = YearsOfExperience.objects.get(name=selected_years_of_experience_options)
+            years_of_experience_option = YearsOfExperience.objects.get(name=selected_years_of_experience_options)
         except YearsOfExperience.DoesNotExist:
-            messages.error(request, "The selected Years Of Experience_options does not exist.")
-            return render(request, 'Introduction/YearsOfExperience.html', {'YearsOfExperience_options': YearsOfExperience.objects.all()})
+            messages.error(request, "The selected Years Of Experience option does not exist.")
+            context = {
+                'YearsOfExperience_options': YearsOfExperience.objects.all(),
+                'selected_options': user_preference.years_experience.all()  # Pre-fill selected options
+            }
+            return render(request, 'Introduction/YearsOfExperience.html', context)
 
-        # Update the user's English levels
-        user_preference.years_experience.set([years_of_experience_options])  # Use set() to update many-to-many
+        # Update the user's years of experience preference
+        user_preference.years_experience.set([years_of_experience_option])  # Use set() to update many-to-many
         user_preference.save()
 
         if created:
-            messages.success(request, "Your Years Of Experience_options preference has been saved.")
+            messages.success(request, "Your Years Of Experience preference has been saved.")
         else:
-            messages.success(request, "Your Years Of Experience_options preference has been updated.")
+            messages.success(request, "Your Years Of Experience preference has been updated.")
 
         return redirect('Job-Experience')  # Redirect to the next step
 
     # Render the template for a GET request
-    context = {'YearsOfExperience_options': YearsOfExperience.objects.all()}
+    context = {
+        'YearsOfExperience_options': YearsOfExperience.objects.all(),
+        'selected_options': user_preference.years_experience.all()  # Pre-fill selected options
+    }
     return render(request, 'Introduction/YearsOfExperience.html', context)
-  
+
 @login_required
 def JobExperiences(request):
+    user = request.user  # Get the current authenticated user
+    user_preferences = getattr(user, 'userpreference', None)
     
-    context = {'JobExperience_options': JobExperience.objects.all()}
+    context = {
+        'JobExperience_options': JobExperience.objects.all(),
+        'selected_job_experiences': list(
+            user_preferences.experiences.values_list('id', flat=True)
+        ) if user_preferences else []
+    }
     
     if request.method == 'POST':
         selected_job_experience = request.POST.get('job_experience')  # Get the selected option from POST data
+        
         if not selected_job_experience:
             messages.error(request, "Please select your job experience.")
             return render(request, 'Introduction/JobExperience.html', context)
 
-        user = request.user  # Get the current authenticated user
-        # Check if the user already has a preference for English level
+        # Check if the user already has a preference for job experience
         user_preference, created = UserPreference.objects.get_or_create(user=user)
 
         # Fetch the JobExperience instance
         try:
-            job_experiences = JobExperience.objects.get(name=selected_job_experience)
+            job_experience = JobExperience.objects.get(pk=int(selected_job_experience))
         except JobExperience.DoesNotExist:
             messages.error(request, "The selected job experience does not exist.")
             return render(request, 'Introduction/JobExperience.html', context)
 
         # Update the user's job experience
-        user_preference.experiences.set([job_experiences])  # Use set() to update many-to-many
+        user_preference.experiences.set([job_experience])  # Use set() to update many-to-many
         user_preference.save()
 
         if created:
@@ -183,9 +292,45 @@ def JobExperiences(request):
 
         return redirect('Level-Of-Education')  # Redirect to the next step
 
-    # Render the template for a GET request
-    
     return render(request, 'Introduction/JobExperience.html', context)
+
+  
+# @login_required
+# def JobExperiences(request):
+    
+#     context = {'JobExperience_options': JobExperience.objects.all()}
+    
+#     if request.method == 'POST':
+#         selected_job_experience = request.POST.get('job_experience')  # Get the selected option from POST data
+#         if not selected_job_experience:
+#             messages.error(request, "Please select your job experience.")
+#             return render(request, 'Introduction/JobExperience.html', context)
+
+#         user = request.user  # Get the current authenticated user
+#         # Check if the user already has a preference for English level
+#         user_preference, created = UserPreference.objects.get_or_create(user=user)
+
+#         # Fetch the JobExperience instance
+#         try:
+#             job_experiences = JobExperience.objects.get(name=selected_job_experience)
+#         except JobExperience.DoesNotExist:
+#             messages.error(request, "The selected job experience does not exist.")
+#             return render(request, 'Introduction/JobExperience.html', context)
+
+#         # Update the user's job experience
+#         user_preference.experiences.set([job_experiences])  # Use set() to update many-to-many
+#         user_preference.save()
+
+#         if created:
+#             messages.success(request, "Your job experience preference has been saved.")
+#         else:
+#             messages.success(request, "Your job experience preference has been updated.")
+
+#         return redirect('Level-Of-Education')  # Redirect to the next step
+
+#     # Render the template for a GET request
+    
+#     return render(request, 'Introduction/JobExperience.html', context)
 
 @login_required
 def LevelOfEducations(request):
@@ -366,36 +511,76 @@ def EmploymentOptions(request):
 @login_required
 def JobListTypes(request):
     if request.method == 'POST':
-        selected_JobListType_options = request.POST.get('JobListType_options')  # Get the selected option from POST data
+        selected_JobListType_options = request.POST.get('JobListType_options')
         if not selected_JobListType_options:
             messages.error(request, "Please select your job preference.")
-            return render(request, 'Introduction/JobListType.html', {'JobListType_options': JobListType.objects.all()})
+            return render(request, 'Introduction/JobListType.html', {
+                'JobListType_options': JobListType.objects.all(),
+                'selected_job_type': None,  # No selection
+            })
 
-        user = request.user  # Get the current authenticated user
-        # Check if the user already has a preference for English level
+        user = request.user
         user_preference, created = UserPreference.objects.get_or_create(user=user)
 
-        # Fetch the JobListType instance
         try:
-            JobListType_options = JobListType.objects.get(name=selected_JobListType_options)
+            JobListType_option = JobListType.objects.get(name=selected_JobListType_options)
         except JobListType.DoesNotExist:
-            messages.error(request, "The selected job type list does not exist.")
-            return render(request, 'Introduction/JobListType.html', {'JobListType_options': JobListType.objects.all()})
+            messages.error(request, "The selected job type does not exist.")
+            return render(request, 'Introduction/JobListType.html', {
+                'JobListType_options': JobListType.objects.all(),
+                'selected_job_type': None,  # No selection
+            })
 
-        # Update the user's English levels
-        user_preference.job_types.set([JobListType_options])  # Use set() to update many-to-many
+        user_preference.job_types.set([JobListType_option])
         user_preference.save()
 
-        if created:
-            messages.success(request, "Your job type list preference has been saved.")
-        else:
-            messages.success(request, "Your job type list preference has been updated.")
+        return redirect('Work-Schedule')
 
-        return redirect('Work-Schedule')  # Redirect to the next step
+    user = request.user
+    try:
+        user_preference = UserPreference.objects.get(user=user)
+        selected_job_type = user_preference.job_types.first()  # Fetch the saved preference
+    except UserPreference.DoesNotExist:
+        selected_job_type = None
 
-    # Render the template for a GET request
-    context = {'JobListType_options': JobListType.objects.all()}
-    return render(request, 'Introduction/JobListType.html', context)
+    return render(request, 'Introduction/JobListType.html', {
+        'JobListType_options': JobListType.objects.all(),
+        'selected_job_type': selected_job_type.name if selected_job_type else None,
+    })
+
+# @login_required
+# def JobListTypes(request):
+#     if request.method == 'POST':
+#         selected_JobListType_options = request.POST.get('JobListType_options')  # Get the selected option from POST data
+#         if not selected_JobListType_options:
+#             messages.error(request, "Please select your job preference.")
+#             return render(request, 'Introduction/JobListType.html', {'JobListType_options': JobListType.objects.all()})
+
+#         user = request.user  # Get the current authenticated user
+#         # Check if the user already has a preference for English level
+#         user_preference, created = UserPreference.objects.get_or_create(user=user)
+
+#         # Fetch the JobListType instance
+#         try:
+#             JobListType_options = JobListType.objects.get(name=selected_JobListType_options)
+#         except JobListType.DoesNotExist:
+#             messages.error(request, "The selected job type list does not exist.")
+#             return render(request, 'Introduction/JobListType.html', {'JobListType_options': JobListType.objects.all()})
+
+#         # Update the user's English levels
+#         user_preference.job_types.set([JobListType_options])  # Use set() to update many-to-many
+#         user_preference.save()
+
+#         if created:
+#             messages.success(request, "Your job type list preference has been saved.")
+#         else:
+#             messages.success(request, "Your job type list preference has been updated.")
+
+#         return redirect('Work-Schedule')  # Redirect to the next step
+
+#     # Render the template for a GET request
+#     context = {'JobListType_options': JobListType.objects.all()}
+#     return render(request, 'Introduction/JobListType.html', context)
     
 @login_required
 def WorkSchedules(request):
@@ -576,3 +761,6 @@ def updateWorkStatus(request):
 
 
 
+# Recent Activities 
+def RecentActivity(request):
+    return render(request, 'Job/RecentActivity.html')

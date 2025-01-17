@@ -1,0 +1,392 @@
+{% extends 'Teamworkspace/Teamworkspacebase.html' %}
+
+{% comment %} # Theo worked on this {% endcomment %}
+
+{% load static %}
+{% load custom_filters %}
+{% block title %}Team Workspace Dashboard{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'src/css/TeamworkspaceModals.css' %}">
+    <script src="{% static 'src/js/workspace.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merged Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="dist/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="src/styles.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+{% endcomment %}
+<div class="bg-gray-50"> 
+
+    <main class="max-w-4xl mx-auto p-4">
+        <h1 class="text-2xl font-bold text-center mb-4">Recent Activity</h1>
+
+      <!-- Navigation Tabs -->
+<div class="flex flex-wrap justify-center gap-4 mb-8">
+    <button class="px-4 py-2 bg-yellow-300 hover:bg-gray-300 rounded" onclick="showTab('jobs-applied')">Jobs Applied</button>
+    <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded" onclick="showTab('milestones')">Milestones</button>
+    <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded" onclick="showTab('invitations')">Invitations received</button>
+    <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded" onclick="showTab('team_activity')">Team activity update</button>
+</div>
+
+
+        <!-- Tab Content -->
+        <div id="jobs-applied"
+            class="tab-content active space-y-6 overflow-y-auto h-[70vh] p-4 bg-gray-50 rounded ">
+            <!-- Jobs Applied Content -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img alt="Company Logo" class="h-12 w-12 rounded-full mr-4"
+                        src="https://storage.googleapis.com/a1aa/image/nu3T1RDS7Ab0GVfEPftgVf8r2fd1EhWwWcM2sQSeJKCYDZTgC.jpg" />
+                    <div>
+                        <h2 class="text-lg font-bold">Front-end Developer</h2>
+                        <p class="text-gray-500">Solana</p>
+                        <p class="text-gray-500"><i class="fas fa-map-marker-alt"></i> California</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap space-x-2 mb-4">
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">Full-time</span>
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">3+ years experience</span>
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">$300/month</span>
+                </div>
+                <p class="text-gray-700 mb-4">
+                    We're seeking an experienced Front-end Developer with 3+ years of expertise in building responsive
+                    web applications. Proficiency in HTML, CSS, and JavaScript is a must. Join our team and help us
+                    build innovative digital solutions!
+                </p>
+                <span class="bg-yellow-200 text-black px-2 py-1 rounded">5 applied</span>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img alt="Company Logo" class="h-12 w-12 rounded-full mr-4"
+                        src="https://storage.googleapis.com/a1aa/image/nu3T1RDS7Ab0GVfEPftgVf8r2fd1EhWwWcM2sQSeJKCYDZTgC.jpg" />
+                    <div>
+                        <h2 class="text-lg font-bold">Front-end Developer</h2>
+                        <p class="text-gray-500">Solana</p>
+                        <p class="text-gray-500"><i class="fas fa-map-marker-alt"></i> California</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap space-x-2 mb-4">
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">Full-time</span>
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">3+ years experience</span>
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">$300/month</span>
+                </div>
+                <p class="text-gray-700 mb-4">
+                    We're seeking an experienced Front-end Developer with 3+ years of expertise in building responsive
+                    web applications. Proficiency in HTML, CSS, and JavaScript is a must. Join our team and help us
+                    build innovative digital solutions!
+                </p>
+                <span class="bg-yellow-200 text-black px-2 py-1 rounded">5 applied</span>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img alt="Company Logo" class="h-12 w-12 rounded-full mr-4"
+                        src="https://storage.googleapis.com/a1aa/image/nu3T1RDS7Ab0GVfEPftgVf8r2fd1EhWwWcM2sQSeJKCYDZTgC.jpg" />
+                    <div>
+                        <h2 class="text-lg font-bold">Front-end Developer</h2>
+                        <p class="text-gray-500">Solana</p>
+                        <p class="text-gray-500"><i class="fas fa-map-marker-alt"></i> California</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap space-x-2 mb-4">
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">Full-time</span>
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">3+ years experience</span>
+                    <span class="bg-gray-200 text-black px-2 py-1 rounded">$300/month</span>
+                </div>
+                <p class="text-gray-700 mb-4">
+                    We're seeking an experienced Front-end Developer with 3+ years of expertise in building responsive
+                    web applications. Proficiency in HTML, CSS, and JavaScript is a must. Join our team and help us
+                    build innovative digital solutions!
+                </p>
+                <span class="bg-yellow-200 text-black px-2 py-1 rounded">5 applied</span>
+            </div>
+
+            <!-- Repeat job cards as necessary -->
+        </div>
+
+        <div id="milestones" class="tab-content space-y-6 overflow-y-auto h-[70vh] p-4 bg-gray-50 rounded shadow">
+            <!-- Milestones Content -->
+            <div class="flex mb-6">
+                <div class="w-1/4">
+                    <h2 class="font-bold">In-progress</h2>
+                    <div class="border-b-2 border-yellow-400 w-16 mb-4"></div>
+                    <h2 class="font-bold">Completed</h2>
+                </div>
+                <div class="w-3/4">
+                    <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                        <div class="flex items-center mb-4">
+                            <img alt="Job Image" class="h-12 w-12 rounded-full mr-4" src="https://placehold.co/50x50" />
+                            <div>
+                                <h3 class="font-bold">Front-end Developer</h3>
+                                <p>Solana</p>
+                                <p><i class="fas fa-map-marker-alt"></i> California</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap justify-between items-center space-y-2 sm:space-y-0 mb-4">
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                Full-time
+                            </span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                3+ years experience
+                            </span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                $300/month
+                            </span>
+                        </div>
+
+                        <p class="mb-4">
+                            We're seeking an experienced Front-end Developer with 3+ years of expertise in building
+                            responsive web applications. Proficiency in HTML, CSS, and JavaScript is a must. Join our
+                            team and help us build innovative digital solutions!
+                        </p>
+                        <div class="flex items-center">
+                            <span class="px-4 py-2 bg-yellow-400 rounded-md" onclick="showProjectOverviewModal()">
+                                In-progress
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                        <div class="flex items-center mb-4">
+                            <img alt="Job Image" class="h-12 w-12 rounded-full mr-4" src="https://placehold.co/50x50" />
+                            <div>
+                                <h3 class="font-bold">Front-end Developer</h3>
+                                <p>Solana</p>
+                                <p><i class="fas fa-map-marker-alt"></i> California</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap justify-between items-center space-y-2 sm:space-y-0 mb-4">
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                Full-time
+                            </span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                3+ years experience
+                            </span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                $300/month
+                            </span>
+                        </div>
+
+                        <p class="mb-4">
+                            We're seeking an experienced Front-end Developer with 3+ years of expertise in building
+                            responsive web applications. Proficiency in HTML, CSS, and JavaScript is a must. Join our
+                            team and help us build innovative digital solutions!
+                        </p>
+                        <div class="flex items-center">
+                            <span class="px-4 py-2 bg-yellow-400 rounded-md" onclick="showProjectOverviewModal()">
+                                In-progress
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                        <div class="flex items-center mb-4">
+                            <img alt="Job Image" class="h-12 w-12 rounded-full mr-4" src="https://placehold.co/50x50" />
+                            <div>
+                                <h3 class="font-bold">Front-end Developer</h3>
+                                <p>Solana</p>
+                                <p><i class="fas fa-map-marker-alt"></i> California</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap justify-between items-center space-y-2 sm:space-y-0 mb-4">
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                Full-time
+                            </span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                3+ years experience
+                            </span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-md w-full sm:w-auto text-center">
+                                $300/month
+                            </span>
+                        </div>
+
+                        <p class="mb-4">
+                            We're seeking an experienced Front-end Developer with 3+ years of expertise in building
+                            responsive web applications. Proficiency in HTML, CSS, and JavaScript is a must. Join our
+                            team and help us build innovative digital solutions!
+                        </p>
+                        <div class="flex items-center">
+                            <span class="px-4 py-2 bg-yellow-400 rounded-md" onclick="showProjectOverviewModal()">
+                                In-progress
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Repeat milestone cards as necessary -->
+                </div>
+            </div>
+        </div>
+        <!-- invitations -->
+        <div id="invitations" class="tab-content" style="display: none;">
+            <h2>Invitations Received</h2>
+            <p>Content for invitations received tab.</p>
+        </div>
+
+        <div id="team_activity" class="tab-content" style="display: none;">
+            <h2>Team Activity Update</h2>
+            <p>Content for Team Activity update tab.</p>
+        </div>
+
+        <button class="block mx-auto mt-8 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 w-40 lg:w-80">Back</button>
+
+        <!-- Modal for Project Overview -->
+        <div id="projectOverviewModal"
+            class="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50 hidden">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-sm p-6 max-h-[600px] overflow-y-auto">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-arrow-left text-xl" onclick="closeProjectOverviewModal()"></i>
+                    <h1 class="text-center flex-grow text-xl font-semibold">Project Overview</h1>
+                </div>
+                <div class="space-y-4">
+                    <!-- Project Card 1 -->
+                    <div class="bg-gray-50 p-4 rounded-lg shadow">
+                        <h2 class="font-semibold mb-2">Project Topic</h2>
+                        <ul class="space-y-1 mb-4">
+                            <li class="flex items-center">
+                                <span class="flex-grow">Building homepage</span>
+                                <i class="fas fa-circle text-yellow-500 text-xs"></i>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="flex-grow">Deploying code</span>
+                                <i class="fas fa-circle text-gray-500 text-xs"></i>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="flex-grow">Integrate admin dashboard</span>
+                                <i class="fas fa-circle text-black text-xs"></i>
+                            </li>
+                        </ul>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+                            <span>2 month</span>
+                            <div class="w-full h-1 bg-gray-300 rounded-full overflow-hidden">
+                                <div class="h-full bg-black" style="width: 50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="bg-yellow-50 p-4 rounded-lg shadow">
+                        <h2 class="font-semibold mb-2">Project Topic</h2>
+                        <ul class="space-y-1 mb-4">
+                            <li class="flex items-center">
+                                <span class="flex-grow">Building homepage</span>
+                                <i class="fas fa-circle text-yellow-500 text-xs"></i>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="flex-grow">Deploying code</span>
+                                <i class="fas fa-circle text-yellow-500 text-xs"></i>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="flex-grow">Integrate admin dashboard</span>
+                                <i class="fas fa-circle text-yellow-500 text-xs"></i>
+                            </li>
+                        </ul>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+                            <span>2nd-20th, April, 2024</span>
+                            <div class="w-full h-1 bg-yellow-300 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-500" style="width: 50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="bg-gray-50 p-4 rounded-lg shadow">
+                        <h2 class="font-semibold mb-2">Project Topic</h2>
+                        <ul class="space-y-1 mb-4">
+                            <li class="flex items-center">
+                                <span class="flex-grow">Building homepage</span>
+                                <i class="fas fa-circle text-yellow-500 text-xs"></i>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="flex-grow">Deploying code</span>
+                                <i class="fas fa-circle text-gray-500 text-xs"></i>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="flex-grow">Integrate admin dashboard</span>
+                                <i class="fas fa-circle text-black text-xs"></i>
+                            </li>
+                        </ul>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+                            <span>2 month</span>
+                            <div class="w-full h-1 bg-gray-300 rounded-full overflow-hidden">
+                                <div class="h-full bg-black" style="width: 50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat project cards as necessary -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Show the selected tab content
+            const selectedContent = document.getElementById(tabId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+
+            // Update the active button's styles
+            const tabButtons = document.querySelectorAll('button[onclick^="showTab"]');
+            tabButtons.forEach(button => {
+                button.classList.remove('bg-yellow-300');
+                button.classList.add('bg-gray-200');
+            });
+
+            // Highlight the active button
+            const activeButton = Array.from(tabButtons).find(button => button.getAttribute('onclick').includes(tabId));
+            if (activeButton) {
+                activeButton.classList.add('bg-yellow-300');
+                activeButton.classList.remove('bg-gray-200');
+            }
+
+            // Remove blur effect from all tabs
+            tabContents.forEach(content => content.classList.remove('blur-sm'));
+        }
+
+        function showProjectOverviewModal() {
+            // Show the modal
+            document.getElementById('projectOverviewModal').classList.remove('hidden');
+
+            // Add a blur effect to the currently active tab content
+            const activeTabContent = document.querySelector('.tab-content[style="display: block;"]');
+            if (activeTabContent) {
+                activeTabContent.classList.add('blur-sm');
+            }
+        }
+
+        function closeProjectOverviewModal() {
+            // Hide the modal
+            document.getElementById('projectOverviewModal').classList.add('hidden');
+
+            // Remove the blur effect from the active tab content
+            const activeTabContent = document.querySelector('.tab-content[style="display: block;"]');
+            if (activeTabContent) {
+                activeTabContent.classList.remove('blur-sm');
+            }
+        }
+    </script>
+</div>
+
+{% endblock %}

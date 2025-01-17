@@ -13,7 +13,7 @@
 
 <div class="bg-white flex items-center justify-center">
     <div class="w-full max-w-3xl mb-8 p-6">
-        <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">How Would You Describe Your Experience?</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">How  Would You Describe Your Experience?</h2>
     </div>
 </div>
 <form method="post">
@@ -71,13 +71,18 @@
         <div class="sm:px-8 lg:px-32 bg-white">
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-4">
                 {% for option in JobExperience_options %}
-                <button type="button" class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
-                    {{ option.name }} 
+                <button 
+                    type="button" 
+                    class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium 
+                    {% if option.id|stringformat:"s" in selected_job_experiences %}bg-yellow-400 text-white{% endif %}" 
+                    data-id="{{ option.id }}">
+                    {{ option.name }}
                 </button>
                 {% endfor %}
             </div>
-            <input type="hidden" name="job_experience" id="job_experience">
+            <input type="hidden" name="job_experience" id="job_experience" value="{{ selected_job_experiences|join:',' }}">
         </div>
+        
     </div>
     </div>
     <div class="bg-white flex items-center justify-center space-x-7">
@@ -94,22 +99,6 @@
     </div>
 </form>
 
-
-    <!-- Navigation Buttons -->   
-
-{% comment %} </form>
-<div class="bg-white flex items-center justify-center space-x-7">
-    <div class="bg-white flex items-center justify-center space-x-7">
-        <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
-    </div>
-    <a href="{% url 'Years-Of-Experience' %}">
-        <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
-    </a>
-    <div class="bg-white flex items-center justify-center py-12">
-        <a href="{% url 'Level-Of-Education' %}" class="font-medium" style="color:#FDCE02">Skip Now</a>
-    </div>
-</div> {% endcomment %}
-
     <!-- JavaScript for Multi-Select with Limit -->
     <script>
         function removeMessage(button) {
@@ -123,7 +112,18 @@
             const categoryButtons = document.querySelectorAll('.category-btn');
             const hiddenInput = document.getElementById('job_experience');
             let selectedButton = null;
-    
+        
+            // Pre-fill the selection if saved
+            const savedId = hiddenInput.value;
+            if (savedId) {
+                const preSelectedButton = document.querySelector(`[data-id="${savedId}"]`);
+                if (preSelectedButton) {
+                    preSelectedButton.classList.add('bg-yellow-400', 'text-white');
+                    selectedButton = preSelectedButton;
+                }
+            }
+        
+            // Event listener for buttons
             categoryButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     if (selectedButton) {
@@ -132,7 +132,7 @@
                     if (selectedButton !== button) {
                         button.classList.add('bg-yellow-400', 'text-white');
                         selectedButton = button;
-                        hiddenInput.value = button.dataset.value;
+                        hiddenInput.value = button.dataset.id;
                     } else {
                         selectedButton = null;
                         hiddenInput.value = '';
@@ -140,6 +140,7 @@
                 });
             });
         });
+        
     </script>
 {%endblock%}
 

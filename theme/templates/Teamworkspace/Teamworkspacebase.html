@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Hive Platform{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'src/css/job.css' %}">
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -237,6 +240,14 @@
             margin-top: 5px;
         }
         
+        {% comment %} from RecentActivity {% endcomment %}
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 
@@ -270,9 +281,9 @@
                         style="text-decoration: none;">Overview</a>
                     <a href="#" class="text-black font-semibold mt-2 hover:text-yellow-500"
                         style="text-decoration: none;">Balance</a>
-                    <a href="{% url 'Team-workspace-dashboard' %}" class="bg-yellow-300 text-black font-semibold rounded-lg px-4 py-2 hover:text-black hover:bg-yellow-300"
+                    <a href="{% url 'Team-workspace-dashboard' %}"class="text-black font-semibold mt-2 hover:text-yellow-500"
                         style="text-decoration: none;">Team&nbsp;Workspace</a>    
-                    <a href="{% url 'dashboard:job_view' %}" class="text-black font-semibold mt-2 hover:text-yellow-500"
+                    <a href="{% url 'dashboard:job_view' %}"  class="bg-yellow-300 text-black font-semibold rounded-lg px-4 py-2 hover:text-black hover:bg-yellow-300"
                         style="text-decoration: none;">Job&nbsp;Search</a>
                 </nav>
 
@@ -305,7 +316,7 @@
                                 <a  id="profileBtn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
                                 {% include "portfolioprofileUpdate/components/PopupProfile.html" %}
                                 <a href="{% url 'Update_Explore' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Portfolio</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Recent Activities</a>
+                                <a href="{% url 'RecentActivity' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Recent Activities</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Saved Jobs</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Community</a>
                                 <div class="logout-button py-4 px-6">

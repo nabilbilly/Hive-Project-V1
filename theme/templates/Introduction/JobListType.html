@@ -76,19 +76,25 @@
             </div>
     
             <!-- Main Content -->
-            <div class="flex flex-col items-center lg:items-start w-full lg:w-2/2 lg:pl-16 ">
+           <div class="flex flex-col items-center lg:items-start w-full lg:w-2/2 lg:pl-16 ">
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-4">
                     {% for option in JobListType_options %}
-                        <button type="button"  class="category-btn px-3 py-2 bg-gray-200 rounded-lg text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
-                            {{option.name}}
+                        <button 
+                            type="button"
+                            class="category-btn px-3 py-2 rounded-lg text-sm font-medium 
+                                {% if option.name == selected_job_type %}bg-yellow-400 text-white{% else %}bg-gray-200 text-gray-800{% endif %}" 
+                            data-value="{{ option.name }}">
+                            {{ option.name }}
                         </button>
-                    {%endfor%}
+                    {% endfor %}
                 </div>
-               
-            </div>
-            <input type="hidden" name="JobListType_options" id="JobListType_options">
-
+                <input 
+                    type="hidden" 
+                    name="JobListType_options" 
+                    id="JobListType_options" 
+                    value="{{ selected_job_type }}">
+                
         </div>  
     </div>
     <div class="bg-white flex items-center justify-center space-x-7">
@@ -104,21 +110,32 @@
 
     </div>
 </form>
-    {% comment %} </form>
-    <div class="bg-white flex items-center justify-center space-x-7">
-        <div class="bg-white flex items-center justify-center space-x-7">
-            <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
-        </div>
-        <a href="{% url 'Employment-Option' %}">
-            <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
-        </a>
-        <div class="bg-white flex items-center justify-center py-12">
-            <a href="{%  url 'Work-Schedule' %}" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
-        </div>
-    </div> {% endcomment %}
-    <!-- JavaScript for Multi-Select with Limit -->
- 
-    <script>
+  
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const hiddenInput = document.getElementById('JobListType_options');
+    
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Clear previously selected button styles
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('bg-yellow-400', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-800');
+                });
+    
+                // Add styles to the selected button
+                button.classList.add('bg-yellow-400', 'text-white');
+                button.classList.remove('bg-gray-200', 'text-gray-800');
+    
+                // Update hidden input value
+                hiddenInput.value = button.dataset.value;
+            });
+        });
+    });
+    
+ </script>
+    {% comment %} <script>
         function removeMessage(button) {
             const messageItem = button.closest('li');
             if (messageItem) {
@@ -147,6 +164,6 @@
                 });
             });
         });
-    </script>
+    </script> {% endcomment %}
     
 {% endblock %}

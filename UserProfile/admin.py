@@ -104,9 +104,16 @@ class UserPreferenceAdmin(admin.ModelAdmin):
         return ", ".join([str(team) for team in obj.team.all()])
     get_teams.short_description = "Teams"
     
+    #Nabil change This 
+    # def get_bio_data(self, obj):
+    #     return ", ".join([str(bio_data) for bio_data in obj.bio_data])
+    # get_bio_data.short_description = "Bio Data"
+    
     def get_bio_data(self, obj):
-        return ", ".join([str(bio_data) for bio_data in obj.bio_data])
-    get_bio_data.short_description = "Bio Data"
+        if obj.bio_data:  # Check if bio_data is not None
+            return ", ".join([str(bio_data) for bio_data in obj.bio_data])
+        return "No bio data available"  # Return a default message if bio_data is None
+
      
     def get_min_salary(self, obj):
         return ", ".join([str(min_salary) for min_salary in obj.min_salary])

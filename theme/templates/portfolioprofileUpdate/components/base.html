@@ -20,6 +20,10 @@
 </head>
 <body class="bg-white">
 
+  {% block header %}
+    {% include 'Teamworkspace/Teamworkspacebase.html' %}
+  {% endblock %}
+
   {% include './navbar.html' %}
 
     {% block content %}

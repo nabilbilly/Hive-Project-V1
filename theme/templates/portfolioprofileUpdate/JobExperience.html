@@ -62,12 +62,13 @@
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-2">
                     {% for option in JobExperience_options %}
-                <button type="button" class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium" data-value="{{ option.name }}">
-                    {{ option.name }} years
+                <button type="button" class="category-btn px-2 py-2 rounded-lg bg-gray-200 text-gray-800 text-sm font-medium {% if option.id == selected_english_level %}bg-yellow-400 text-white{% endif %}" data-value="{{ option.name }}">
+                    {{ option.name }}
                 </button>
                 {% endfor %}
             </div>
-            <input type="hidden" name="job_experience" id="job_experience">
+            <input type="hidden" name="english_level" id="english_level" value="{{ selected_english_level }}">
+            {% comment %} <input type="hidden" name="job_experience" id="job_experience"> {% endcomment %}
                 </div>
             </div>
         </div>
@@ -95,8 +96,10 @@
     
     <div class="bg-white flex items-center justify-center space-x-7 ">
         
-        <a href=""> <button class="bg-gray-300 text-gray-700 font-md px-4 py-4 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;&nbsp;</button> </a>
-       
+        {% comment %} <a href=""> <button class="bg-gray-300 text-gray-700 font-md px-4 py-4 rounded-md w-30">&nbsp;&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;&nbsp;</button> </a> {% endcomment %}
+        <button type="submit" class="bg-gray-300 hover:bg-gray-400 text-white font-md px-4 py-2 rounded-md w-30">
+            Update
+        </button>
     </div>
     </div>
 </form>
@@ -137,4 +140,38 @@
             });
         });
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const hiddenInput = document.getElementById('english_level');
+        let selectedButton = null;
+    
+        // Pre-fill selection if saved
+        const savedId = hiddenInput.value;
+        if (savedId) {
+            const preSelectedButton = document.querySelector(`[data-id="${savedId}"]`);
+            if (preSelectedButton) {
+                preSelectedButton.classList.add('bg-yellow-400', 'text-white');
+                selectedButton = preSelectedButton;
+            }
+        }
+    
+        // Add event listeners to buttons
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (selectedButton) {
+                    selectedButton.classList.remove('bg-yellow-400', 'text-white');
+                }
+                if (selectedButton !== button) {
+                    button.classList.add('bg-yellow-400', 'text-white');
+                    selectedButton = button;
+                    hiddenInput.value = button.dataset.id; // Update hidden input
+                } else {
+                    selectedButton = null;
+                    hiddenInput.value = ''; // Clear hidden input
+                }
+            });
+        });
+    });
+</script>
   {% endblock %}

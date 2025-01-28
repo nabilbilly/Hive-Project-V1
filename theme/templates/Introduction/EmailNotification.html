@@ -142,9 +142,9 @@
             </div>
         </div>
        
-        <div class="bg-white flex items-center justify-center space-x-7">
+        {% comment %} <div class="bg-white flex items-center justify-center space-x-7">
             <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
-        </div>
+        </div> {% endcomment %}
     </div>
     </form>
     <div class="bg-white flex items-center justify-center space-x-7">
@@ -152,7 +152,9 @@
             <button class="bg-gray-300 text-gray-700 hover:text-gray-800 font-md px-4 py-2 rounded-md w-30">Back</button>
         </a>
         <div class="bg-white flex items-center justify-center py-12">
-            <a href="{% url 'dashboard:dashboard_home'%}" class=" font-medium "  style="color:#FDCE02">Skip Now</a>  
+            <a href="{% url 'dashboard:dashboard_home'%}" class=" font-medium "  style="color:#FDCE02">
+                <button class="text-gray-700 font-md px-4 py-2 bg-yellow-400 hover:bg-yellow-500 rounded-md w-30" type="submit">Continue</button>
+            </a>  
         </div>
     </div>
   <script>

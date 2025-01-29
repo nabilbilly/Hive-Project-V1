@@ -1,7 +1,8 @@
+from decouple import config
 from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 # # Session will expire when the user closes the browser
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'hivenetwork.xyz', 'www.hivenetwork.xyz',]
 
 # Application definition
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'daphne',
     'django.contrib.staticfiles',
     'channels',
+    'storages',
     'Mainapp',
     'Accounts',
     'DashboardPages',
@@ -50,8 +52,8 @@ INSTALLED_APPS = [
     'EmployersDashboard',
     'cities_light',
     'UserProfile',
-    
-    
+
+
 ]
 
 # Login URL Configuration
@@ -67,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'Accounts.middleware.AdminRedirectMiddleware',  
+    'Accounts.middleware.AdminRedirectMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
@@ -77,7 +79,6 @@ MIDDLEWARE = [
 # COMPRESS_ENABLED = True
 
 # STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
-
 
 
 ROOT_URLCONF = 'HiveProject.urls'
@@ -116,8 +117,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-         'OPTIONS': {
-            'timeout': 20,  
+        'OPTIONS': {
+            'timeout': 20,
         },
     }
 }
@@ -146,18 +147,30 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# AWS S3 Configuration
 
-# Media Files
-MEDIA_URL = '/media/'
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
 
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'HiveProject/static'),
+]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+DEFAULT_FILE_STORAGE = 'Hive-Project-V1.storage_backends.MediaStorage'
 
 
 # Email configuration
@@ -167,8 +180,10 @@ EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False') == 'False'
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'True') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'your_email@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'your_app_password')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'your_email@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get(
+    'EMAIL_HOST_PASSWORD', 'your_app_password')
+DEFAULT_FROM_EMAIL = os.environ.get(
+    'DEFAULT_FROM_EMAIL', 'your_email@gmail.com')
 
 # Cache configuration for OTP storage
 CACHES = {

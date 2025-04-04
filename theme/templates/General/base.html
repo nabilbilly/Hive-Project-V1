@@ -22,7 +22,6 @@
             </div>
             <div class="flex items-center space-x-3 ">
                 <nav class="hidden items-center md:flex space-x-4 lg:space-x-12 mr-8 pl-2 ">
-
                     <a href="{% url 'Talent-page' %}" class="text-black font-semibold " 
                         style="text-decoration: none; position: relative; display: inline-block; transition: all 0.3s ease;"
                         onmouseover="this.style.color='black'; this.style.backgroundColor='#FDCE02'; this.style.padding='10px 20px 10px 20px'; this.style.borderRadius='10px'; this.style.opacity='1';"
@@ -48,24 +47,27 @@
                         style="text-decoration: none; position: relative; display: inline-block; transition: all 0.3s ease;"
                         onmouseover="this.style.color='black'; this.style.backgroundColor='#FDCE02'; this.style.padding='10px 20px 10px 20px'; this.style.borderRadius='10px'; this.style.opacity='1';"
                         onmouseout="this.style.color='black'; this.style.backgroundColor='transparent'; this.style.padding='0'; this.style.borderRadius='0'; this.style.opacity='1';">
-                            Employers
+                        Employers
                     </a>
                 </nav>            
                     
-                    {% comment %} {% if not user.is_authenticated %} {% endcomment %}
-                        <a href="{% url 'accounts:Login'%}" class=" bg-white text-black font-semibold  hover:text-black" style="text-decoration: none;padding:10px 20px 10px 20px;border-radius:10px;box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);">Log&nbsp;in</a>
-                        <a href="{% url 'accounts:SignUp' %}" class=" text-black font-semibold  hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;"
-                         onmouseover="this.style.color='black'; this.style.backgroundColor='#FDCE02'; "  onmouseout="this.style.color='black'; this.style.backgroundColor='#FDCE02';">
-                         Sign&nbsp;up
-                        </a>
-                    {% comment %} {% else %}
-                        <form method="post" action="{% url 'accounts:LogoutUser' %}" style="display: inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="text-black font-semibold hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;">
-                                Log&nbsp;out
-                            </button>
-                        </form>
-                    {% endif %} {% endcomment %}
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard:dashboard_home' %}" class="text-black font-semibold hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;">
+                        Dashboard
+                    </a>
+                    <form method="post" action="{% url 'accounts:LogoutUser' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="text-black font-semibold hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;">
+                            Log&nbsp;out
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:Login'%}" class="bg-white text-black font-semibold hover:text-black" style="text-decoration: none;padding:10px 20px 10px 20px;border-radius:10px;box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);">Log&nbsp;in</a>
+                    <a href="{% url 'accounts:SignUp' %}" class="text-black font-semibold hover:bg-yellow-600" style="text-decoration: none; background:#FDCE02;padding:10px 20px 10px 20px;border-radius:10px;"
+                     onmouseover="this.style.color='black'; this.style.backgroundColor='#FDCE02';" onmouseout="this.style.color='black'; this.style.backgroundColor='#FDCE02';">
+                     Sign&nbsp;up
+                    </a>
+                {% endif %}
                 </div>
             </div>
         </div>
@@ -159,7 +161,7 @@
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-gray-700" style="text-decoration: none;">Join us, let’s socialize</h3>
+                    <h3 class="text-xl font-bold text-gray-700" style="text-decoration: none;">Join us, let's socialize</h3>
                     <ul class="mt-2 space-y-2">
                         <li><a href="#" class="text-gray-600 hover:text-yellow-500" style="text-decoration: none;">LinkedIn</a></li>
                         <li><a href="#" class="text-gray-600 hover:text-yellow-500" style="text-decoration: none;">YouTube</a></li>

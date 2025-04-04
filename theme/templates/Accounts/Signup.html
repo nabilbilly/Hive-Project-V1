@@ -23,7 +23,7 @@
             <h5 class="text-sm text-gray-700 text-center mb-2">Create a Hive account and let companies <br> apply directly to you.</h5>
             <br>
             <!--  Forms -->
-            <form method="post" >
+            <form method="post" id="signupForm">
                 {% csrf_token %}
                 {% if messages %}
                 <ul class="messages mb-4">
@@ -60,6 +60,25 @@
                 <div class="mb-4">
                     <label for="email" class="block font-bold text-black-700">Password*</label>
                     {{ form.password1 }}
+                    <div id="passwordRequirements" class="mt-2 text-sm">
+                        <ul class="list-none pl-0">
+                            <li id="length" class="text-red-500 flex items-center">
+                                <span class="mr-2">•</span> At least 8 characters
+                            </li>
+                            <li id="uppercase" class="text-red-500 flex items-center">
+                                <span class="mr-2">•</span> At least one uppercase letter
+                            </li>
+                            <li id="lowercase" class="text-red-500 flex items-center">
+                                <span class="mr-2">•</span> At least one lowercase letter
+                            </li>
+                            <li id="number" class="text-red-500 flex items-center">
+                                <span class="mr-2">•</span> At least one number
+                            </li>
+                            <li id="special" class="text-red-500 flex items-center">
+                                <span class="mr-2">•</span> At least one special character
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block font-bold text-black-700">Confirm Password*</label>
@@ -127,11 +146,51 @@
 </main>
 <script>
     function removeMessage(button) {
-        // Find the closest <li> element to the clicked button and remove it
         const messageItem = button.closest('li');
         if (messageItem) {
             messageItem.remove();
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.querySelector('input[name="password1"]');
+        const requirements = {
+            length: /.{8,}/,
+            uppercase: /[A-Z]/,
+            lowercase: /[a-z]/,
+            number: /[0-9]/,
+            special: /[!@#$%^&*(),.?":{}|<>]/
+        };
+
+        function updateRequirements(password) {
+            for (const [requirement, regex] of Object.entries(requirements)) {
+                const element = document.getElementById(requirement);
+                if (regex.test(password)) {
+                    element.classList.remove('text-red-500');
+                    element.classList.add('text-green-500');
+                } else {
+                    element.classList.remove('text-green-500');
+                    element.classList.add('text-red-500');
+                }
+            }
+        }
+
+        passwordInput.addEventListener('input', function(e) {
+            updateRequirements(e.target.value);
+        });
+
+        // Check password match
+        const confirmPasswordInput = document.querySelector('input[name="password2"]');
+        confirmPasswordInput.addEventListener('input', function(e) {
+            const password1 = passwordInput.value;
+            const password2 = e.target.value;
+            
+            if (password2 && password1 !== password2) {
+                e.target.setCustomValidity("Passwords do not match");
+            } else {
+                e.target.setCustomValidity("");
+            }
+        });
+    });
 </script>
 {% endblock %}

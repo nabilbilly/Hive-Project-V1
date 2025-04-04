@@ -143,6 +143,8 @@ def Login(request):
 
         if user is not None:
             login(request, user)
+            # Set session flag for welcome message
+            request.session['show_welcome'] = True
 
             if user.first_login:
                 user.first_login = False

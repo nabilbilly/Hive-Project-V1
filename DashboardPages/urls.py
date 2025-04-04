@@ -12,4 +12,5 @@ urlpatterns = [
     path('my-applications/', views.my_applications, name='my_applications'),
     path('preferences/', views.update_preferences, name='update_preferences'),
     path('job/', views.job_view, name='job_view'),
+    path('clear-welcome/', views.clear_welcome, name='clear_welcome'),
 ]

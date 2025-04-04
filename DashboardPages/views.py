@@ -9,6 +9,7 @@ from django.db.models import Q
 from .models import JobListing, JobApplication, JobReport, JobSearchPreferences, UserJobProfile
 from Accounts.models import Skill, UserProfile
 from TalentMatching.services import TalentMatchingService
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 @login_required
@@ -299,3 +300,10 @@ def get_next_step(current_step):
         return 'complete'
     except ValueError:
         return 'employment'
+
+@login_required
+@require_POST
+def clear_welcome(request):
+    if 'show_welcome' in request.session:
+        del request.session['show_welcome']
+    return JsonResponse({'status': 'success'})

@@ -1,5 +1,9 @@
 # Helper function to reduce redundancy
 from django.shortcuts import render
+import sys
+from django.template import TemplateDoesNotExist
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
+
 def Talentpage(request):
     return render(request, 'General/TalentPage.html')
 
@@ -479,3 +483,55 @@ def Employerspage(request):
 #     # Render the template for a GET request
 
 #     return render(request, 'Introduction/EmailNotification.html')  # Replace with the final UI URL
+
+def handler404(request, exception):
+    error_message = str(exception)
+    if isinstance(exception, TemplateDoesNotExist):
+        error_message = f"Template not found: {exception}"
+    return render(request, 'General/error.html', {
+        'error_code': 404,
+        'error_message': error_message,
+        'error_type': 'Template Not Found' if isinstance(exception, TemplateDoesNotExist) else 'Page Not Found'
+    }, status=404)
+
+def handler500(request):
+    error_message = 'Internal Server Error'
+    error_type = 'Server Error'
+    
+    # Get the exception that caused the 500 error
+    exc_info = sys.exc_info()
+    if exc_info[0] is not None:
+        if isinstance(exc_info[1], TemplateDoesNotExist):
+            error_message = f"Template not found: {exc_info[1]}"
+            error_type = 'Template Not Found'
+        elif isinstance(exc_info[1], Exception):
+            error_message = str(exc_info[1])
+            error_type = exc_info[0].__name__
+    
+    return render(request, 'General/error.html', {
+        'error_code': 500,
+        'error_message': error_message,
+        'error_type': error_type
+    }, status=500)
+
+def handler403(request, exception):
+    error_message = str(exception)
+    error_type = 'Access Denied'
+    if isinstance(exception, PermissionDenied):
+        error_type = 'Permission Denied'
+    return render(request, 'General/error.html', {
+        'error_code': 403,
+        'error_message': error_message,
+        'error_type': error_type
+    }, status=403)
+
+def handler400(request, exception):
+    error_message = str(exception)
+    error_type = 'Bad Request'
+    if isinstance(exception, SuspiciousOperation):
+        error_type = 'Suspicious Operation'
+    return render(request, 'General/error.html', {
+        'error_code': 400,
+        'error_message': error_message,
+        'error_type': error_type
+    }, status=400)

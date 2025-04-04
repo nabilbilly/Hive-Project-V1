@@ -225,11 +225,19 @@
                 <!-- Profile Dropdown -->
                 <div class="profile-dropdown origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="profile-menu-button">
                     <div class="py-1" role="none">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">View Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings and Privacy</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Portfolio</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Recent Activities</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Saved Jobs</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Community</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Save</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Log Out</a>
+                        <div class="logout-button py-4 px-6">
+                            <form method="post" action="{% url 'accounts:LogoutUser' %}" class="w-full">
+                                {% csrf_token %}
+                                <button type="submit" class="w-full bg-yellow-400 text-black font-semibold py-2 px-4 rounded-lg hover:bg-yellow-500">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,19 +299,33 @@
         </script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                // Profile dropdown toggle
                 const profilePic = document.querySelector('.profile-picture');
                 const profileDropdown = document.querySelector('.profile-dropdown');
-    
-                profilePic.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-                });
-    
-                window.addEventListener('click', function(event) {
-                    if (!profilePic.contains(event.target) && !profileDropdown.contains(event.target)) {
-                        profileDropdown.style.display = 'none';
-                    }
-                });
+                
+                if (profilePic && profileDropdown) {
+                    profilePic.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
+                    });
+
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', function(e) {
+                        if (!profilePic.contains(e.target) && !profileDropdown.contains(e.target)) {
+                            profileDropdown.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Ensure the logout form works properly
+                const logoutForm = document.querySelector('form[action="/accounts/logout/"]');
+                if (logoutForm) {
+                    logoutForm.addEventListener('submit', function(e) {
+                        // Allow the form to submit normally
+                        return true;
+                    });
+                }
             });
         </script>
 </body>

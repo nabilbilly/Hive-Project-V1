@@ -308,11 +308,16 @@
                         <!-- Profile Dropdown -->
                         <div class="profile-dropdown origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="profile-menu-button">
                             <div class="py-1" role="none">
+                                <div class="logout-button py-2 px-6">
+                                    <button class="w-full bg-yellow-200 text-black font-semibold py-2 px-4 rounded-lg hover:bg-yellow-300">
+                                        Beta
+                                    </button>
+                                </div>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Portfolio</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Recent Activities</a>
+                                <a href="{% url 'RecentActivity' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Recent Activities</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Saved Jobs</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Community</a>
+                                <a href="{% url 'Join-Community' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Community</a>
                                 <div class="logout-button py-4 px-6">
                                     <form method="post" action="{% url 'accounts:LogoutUser' %}" class="w-full">
                                         {% csrf_token %}
